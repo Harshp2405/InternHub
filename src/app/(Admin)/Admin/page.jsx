@@ -99,7 +99,7 @@ return (
 		</div>
 
 		{/* Welcome Hero Section */}
-		<div className="relative overflow-hidden bg-gradient-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/20 rounded-3xl p-8 mb-10">
+		<div className="relative overflow-hidden bg-linear-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/20 rounded-3xl p-8 mb-10">
 			{/* Decorative Background Element */}
 			<div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
 
