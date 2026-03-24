@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "next-auth/react";
 import { loadUser } from "../../redux/authActions";
+import Link from "next/link";
 export default function Login() {
 	const [message, setMessage] = useState({ text: "", isError: false });
 	const router = useRouter();
@@ -141,11 +142,11 @@ export default function Login() {
 
 				<p className="mt-8 text-center text-sm text-gray-600">
 					Do not have an account?{" "}
-					<a
+					<Link
 						href="/Register"
 						className="text-blue-600 font-semibold hover:underline">
 						Sign up free
-					</a>
+					</Link>
 				</p>
 			</div>
 		</div>

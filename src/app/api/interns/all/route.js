@@ -9,8 +9,7 @@ export async function GET() {
                 email
                 college
                 gender
-                # Fetching the related department name
-                department {
+                departments {
                     name
                 }
             }

@@ -286,8 +286,8 @@ export const getDepartmentTasks = async (deptId) => {
                 priority
                 due_date
                 NameOfUser {
-                  name
-                }
+                    name
+                  }
             }
         }
     `;

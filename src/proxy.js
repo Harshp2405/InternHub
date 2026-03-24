@@ -25,24 +25,35 @@
 // 	return NextResponse.next();
 // }
 
-
 // export const config = {
 // 	matcher: ["/", "/Login", "/Register", "/Admin/:path*", "/Intern/:path*"],
 // };
 
-
 // middleware.js
-import { NextResponse } from "next/server";
-import { jwtVerify } from "jose";
 import { getToken } from "next-auth/jwt";
+import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 export async function proxy(req) {
 	const url = req.nextUrl.clone();
-	const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 	const { pathname } = url;
 
 	const publicPaths = ["/Login", "/Register", "/api/auth"];
 	const isPublic = publicPaths.some((path) => pathname.startsWith(path));
+
+	// ✅ Custom decode using jsonwebtoken (matches your NextAuth config)
+	const token = await getToken({
+		req,
+		secret: process.env.NEXTAUTH_SECRET,
+		decode: async ({ token, secret }) => {
+			try {
+				return jwt.verify(token, secret);
+			} catch (e) {
+				return null;
+			}
+		},
+	});
+
 
 	if (!token && !isPublic) {
 		return NextResponse.redirect(new URL("/Login", req.url));

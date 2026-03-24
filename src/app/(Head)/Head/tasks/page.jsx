@@ -153,7 +153,7 @@ function TasksContent() {
 										<td className="px-6 py-4">
 											<div className="flex items-center gap-2">
 												<div className="h-7 w-7 rounded-full bg-indigo-500/20 flex items-center justify-center text-[10px] text-indigo-400 border border-indigo-500/30">
-													{task.user?.name?.charAt(0) || "?"}
+													{task.NameOfUser?.name?.charAt(0) || "?"}
 												</div>
 												<span className="text-sm text-slate-300">
 													{task.NameOfUser?.name || "Unassigned"}
