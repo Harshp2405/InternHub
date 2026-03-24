@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "../redux/provider";
 import NavbarWrapper from "../components/navbarWrapper"; 
+import IdleMonitor from "../components/IdleMonitor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +17,18 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ReduxProvider>
-          {/* Wrapper handles the logic */}
-          <NavbarWrapper /> 
-          <main>{children}</main>
-        </ReduxProvider>
-      </body>
-    </html>
-  );
+		<html lang="en">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<ReduxProvider>
+					{/* Wrapper handles the logic */}
+					<NavbarWrapper />
+					<main>
+						<IdleMonitor/>
+						{children}
+					</main>
+				</ReduxProvider>
+			</body>
+		</html>
+	);
 }

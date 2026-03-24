@@ -109,6 +109,7 @@ export default function Admin() {
 					<option value="All">All Roles</option>
 					<option value="Head">Head</option>
 					<option value="Intern">Intern</option>
+					<option value="Admin">Admin</option>
 				</select>
 
 				<select
@@ -147,7 +148,7 @@ export default function Admin() {
 										<span className="text-xs bg-blue-900 text-blue-300 px-2 py-1 rounded">
 											Current: {user.role}
 										</span>
-										<select
+										{/* <select
 											className="text-xs bg-gray-800 text-white border border-gray-600 rounded px-1 outline-none"
 											value={user.role}
 											onChange={(e) =>
@@ -156,7 +157,7 @@ export default function Admin() {
 											<option value="Intern">Intern</option>
 											<option value="Admin">Admin</option>
 											<option value="Head">Head</option>
-										</select>
+										</select> */}
 									</div>
 								</div>
 								<div className="flex gap-2">

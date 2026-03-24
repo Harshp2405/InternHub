@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { getSessionUser } from "../../lib/useAuth";
 import Link from "next/link";
+import { useIdleTimeout } from "../../../hooks/useIdleTimeout";
 
 export default function Admin() {
     const [users, setUsers] = useState([]);
-    const [departments, setDepartments] = useState([]); // State for departments
+	
+    const [departments, setDepartments] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [roleFilter, setRoleFilter] = useState("All");
     const [deptFilter, setDeptFilter] = useState("All");
@@ -72,7 +74,7 @@ export default function Admin() {
     // ... keep your imports and logic as they are
 
 return (
-	<div className="min-h-screen p-8 text-white bg-slate-950">
+	<div className="min-h-screen p-8 text-white bg-slate-950 relative">
 		{/* Header Section */}
 		<div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
 			<div>
@@ -145,14 +147,14 @@ return (
 					color="blue"
 				/>
 			</Link>
-            <Link href="/Admin/Department">
-			<StatCard
-				title="Active Departments"
-				value={departments.length}
-				icon="🏢"
-				color="purple"
-                />
-            </Link>
+			<Link href="/Admin/Department">
+				<StatCard
+					title="Active Departments"
+					value={departments.length}
+					icon="🏢"
+					color="purple"
+				/>
+			</Link>
 			<StatCard
 				title="Admin Roles"
 				value={users.filter((u) => u.role === "Admin").length}
@@ -166,6 +168,8 @@ return (
 
 		{/* Secondary Info Grid */}
 		<div className="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+
+		
 	</div>
 );
 }
