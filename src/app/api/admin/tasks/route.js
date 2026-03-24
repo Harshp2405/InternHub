@@ -35,7 +35,6 @@ export async function GET() {
         const tasks = data?.tasks || [];
         const users = data?.users || [];
 
-        // Manual Join: Attach intern name to each task
         const tasksWithInterns = tasks.map(task => ({
             ...task,
             intern_name: users.find(u => Number(u.id) === Number(task.assigned_to))?.name || "Unassigned"
