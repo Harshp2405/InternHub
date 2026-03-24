@@ -79,7 +79,7 @@ function TasksContent() {
 				<input
 					type="text"
 					placeholder="Search by intern name..."
-					className="bg-[#1e293b] border border-slate-700 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500 min-w-[250px]"
+					className="bg-[#1e293b] border border-slate-700 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500 min-w-62.5"
 					value={searchTerm} // Controlled input
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
@@ -145,7 +145,7 @@ function TasksContent() {
 											<div className="font-medium text-slate-200">
 												{task.title}
 											</div>
-											<div className="text-xs text-slate-500 truncate max-w-[200px]">
+											<div className="text-xs text-slate-500 truncate max-w-50">
 												{task.description}
 											</div>
 										</td>
@@ -186,7 +186,7 @@ function TasksContent() {
 													className="text-slate-400 hover:text-blue-400 transition-colors text-sm font-medium">
 													Edit
 												</button>
-												<div className="w-[1px] h-4 bg-slate-700"></div>
+												<div className="w-px h-4 bg-slate-700"></div>
 												<button
 													onClick={() => handleDelete(task.id)}
 													className="text-slate-400 hover:text-red-400 transition-colors text-sm font-medium">

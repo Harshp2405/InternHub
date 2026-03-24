@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken"; // ✅ FIX 1
+import jwt from "jsonwebtoken"; 
 
 const HASURA_URL = process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT;
-const HASURA_ADMIN_SECRET = process.env.HASURA_ADMIN_SECRET; // ✅ FIX 2
+const HASURA_ADMIN_SECRET = process.env.HASURA_ADMIN_SECRET;
 
 export const authOptions = {
 	providers: [
@@ -44,7 +44,6 @@ export const authOptions = {
 						}),
 					});
 
-					// ✅ SAFE PARSING
 					const text = await res.text();
 
 					if (!text) {
@@ -83,7 +82,7 @@ export const authOptions = {
 					};
 				} catch (err) {
 					console.error("AUTH ERROR:", err);
-					return null; // ✅ prevents 500 crash
+					return null;
 				}
 			},
 		}),
@@ -109,7 +108,6 @@ export const authOptions = {
 		},
 	},
 
-	// ✅ CUSTOM JWT
 	jwt: {
 		async encode({ token, secret }) {
 			if (!token) return "";
