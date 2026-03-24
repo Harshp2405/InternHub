@@ -2,7 +2,6 @@ import { getSession } from "next-auth/react";
 
 export async function hasuraFetch(query, variables = {}) {
 	const ss = getSession();
-	// console.log(ss);
 
 	const res = await fetch(process.env.HASURA_PROJECT_ENDPOINT, {
 		method: "POST",
@@ -23,7 +22,6 @@ export async function hasuraFetch(query, variables = {}) {
 		console.error("Hasura GraphQL Errors:", json.errors);
 	}
 
-	// console.log("Full Hasura response:", json);
 
 	return json.data;
 }

@@ -1,7 +1,7 @@
 const HASURA_URL = process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT;
 const HASURA_ADMIN_SECRET = process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET;
 
-// Helper for Hasura Requests
+
 async function hasuraRequest(query, variables = {}) {
 	const res = await fetch(HASURA_URL, {
 		method: "POST",
@@ -17,7 +17,6 @@ async function hasuraRequest(query, variables = {}) {
 }
 
 // 1. Fetch All Users
-// src/lib/useAdmin.js
 
 export const userlist = async () => {
 	const query = `
@@ -38,7 +37,6 @@ export const userlist = async () => {
     `;
 	const data = await hasuraRequest(query);
 
-	// Manual Join: Attach department_name to each user
 	return data.users.map((user) => {
 		const dept = data.departments.find((d) => d.id === user.deptartment_id);
 		return {
@@ -49,10 +47,9 @@ export const userlist = async () => {
 };
 
 // 2. Fetch Single User (The missing export!)
-// src/lib/useAdmin.js
+
 
 export const getSingleUser = async (id) => {
-	// We fetch the user AND the full list of departments
 	const query = `
         query GetUserAndDepartments($id: Int!) {
             users_by_pk(id: $id) {
@@ -74,7 +71,6 @@ export const getSingleUser = async (id) => {
 	const data = await hasuraRequest(query, { id: parseInt(id) });
 	const user = data.users_by_pk;
 
-	// Manually find the matching department name
 	const dept = data.departments.find((d) => d.id === user.deptartment_id);
 
 	return {
