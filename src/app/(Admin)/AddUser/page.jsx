@@ -3,34 +3,49 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"; // Added useEffect, useState
-import { getDepartments } from "../../lib/useAdmin"; // Added import
+import { getDepartments, getUpdateDepartments } from "../../lib/useAdmin"; // Added import
 import * as Yup from "yup";
 
 export default function Register() {
 	const router = useRouter();
 	const [depts, setDepts] = useState([]); // Added state
+	const [availableDepts, setAvailableDepts] = useState([]);
 
+	
 	// Added fetch effect
 	useEffect(() => {
 		const load = async () => {
 			const data = await getDepartments();
+			const depts = await getUpdateDepartments();
 			setDepts(data);
+			setAvailableDepts(depts);
 		};
 		load();
 	}, []);
+
 
 	// 1. Define the Validation Schema
 	const validationSchema = Yup.object({
 		name: Yup.string()
 			.min(2, "Name is too short")
 			.max(50, "Name is too long")
+			.matches(/^[a-zA-Z0-9._]+$/,"Name can only contain letters, numbers, dots, and underscores")
 			.required("Full name is required"),
 		email: Yup.string()
 			.email("Invalid email address")
-			.required("Email is required"),
+			.required("Email is required")
+			.matches(
+				/^[a-zA-Z0-9._]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/,
+				"Please enter a valid email address (e.g., name@example.com)",
+			),
 		password: Yup.string()
 			.min(8, "Password must be at least 8 characters")
 			.matches(/[A-Z]/, "Must contain one uppercase letter")
+			.matches(/[0-9]/, "Must contain one Number letter")
+			.matches(
+				/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+				"Must contain at least one special character",
+			)
 			.required("Password is required"),
 
 		gender: Yup.string().required("Required"),
@@ -157,6 +172,32 @@ export default function Register() {
 							</p>
 						)}
 					</div>
+					<div>
+						<label className="block text-sm font-medium text-white mb-2">
+							Role
+						</label>
+
+						<div className="flex gap-4">
+							{["Intern", "Admin", "Head"].map((g) => (
+								<label key={g} className="flex items-center gap-2 text-white">
+									<input
+										type="radio"
+										name="role"
+										value={g}
+										checked={formik.values.role === g}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
+										className="accent-blue-500"
+									/>
+									{g.charAt(0) + g.slice(1).toLowerCase()}
+								</label>
+							))}
+						</div>
+
+						{formik.touched.role && formik.errors.role && (
+							<p className="text-red-500 text-xs mt-1">{formik.errors.role}</p>
+						)}
+					</div>
 
 					{formik.values.role !== "Admin" && (
 						<>
@@ -174,7 +215,10 @@ export default function Register() {
 											: "border-gray-300 focus:ring-2 focus:ring-blue-500"
 									}`}>
 									<option value="">Select Department</option>
-									{depts.map((d) => (
+									{(formik.values.role == "Head"
+										? availableDepts
+										: depts
+									).map((d) => (
 										<option key={d.id} value={d.id}>
 											{d.name}
 										</option>
@@ -210,33 +254,6 @@ export default function Register() {
 							</div>
 						</>
 					)}
-
-					<div>
-						<label className="block text-sm font-medium text-white mb-2">
-							Role
-						</label>
-
-						<div className="flex gap-4">
-							{["Intern", "Admin", "Head"].map((g) => (
-								<label key={g} className="flex items-center gap-2 text-white">
-									<input
-										type="radio"
-										name="role"
-										value={g}
-										checked={formik.values.role === g}
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										className="accent-blue-500"
-									/>
-									{g.charAt(0) + g.slice(1).toLowerCase()}
-								</label>
-							))}
-						</div>
-
-						{formik.touched.role && formik.errors.role && (
-							<p className="text-red-500 text-xs mt-1">{formik.errors.role}</p>
-						)}
-					</div>
 
 					<div>
 						<label className="block text-sm font-medium text-white mb-2">
