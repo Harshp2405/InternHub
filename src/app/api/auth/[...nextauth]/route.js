@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken"; //
+import jwt from "jsonwebtoken"; 
 
 const HASURA_URL = process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT;
-const HASURA_ADMIN_SECRET = process.env.HASURA_ADMIN_SECRET; //
+const HASURA_ADMIN_SECRET = process.env.HASURA_ADMIN_SECRET;
 
 export const authOptions = {
 	providers: [
@@ -108,7 +108,6 @@ export const authOptions = {
 		},
 	},
 
-	// ✅ CUSTOM JWT
 	jwt: {
 		async encode({ token, secret }) {
 			if (!token) return "";
