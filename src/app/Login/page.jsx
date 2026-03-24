@@ -44,7 +44,7 @@ export default function Login() {
 				// 1. Load the user into Redux
 				const action = await dispatch(loadUser());
 				const loggedInUser = action?.payload; // Assuming your action returns the user data
-				console.log(loggedInUser)
+				// console.log(loggedInUser)
 
 				setMessage({ text: "Login successful!", isError: false });
 

@@ -9,7 +9,6 @@ function TasksContent() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const querySearch = searchParams.get("search") || ""; // Get name from URL
-
 	const { user } = useSelector((state) => state.auth);
 	const [tasks, setTasks] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -17,7 +16,7 @@ function TasksContent() {
 	const [priorityFilter, setPriorityFilter] = useState("All");
 	const [searchTerm, setSearchTerm] = useState("");
 
-    console.log(tasks)
+    // console.log(tasks)
 
 	// Set the search term if it exists in the URL
 	useEffect(() => {
@@ -133,7 +132,7 @@ function TasksContent() {
 									const matchesPriority =
 										priorityFilter === "All" ||
 										task.priority === priorityFilter;
-									const matchesSearch = (task.user?.name || "")
+									const matchesSearch = (task.NameOfUser?.name || "")
 										.toLowerCase()
 										.includes(searchTerm.toLowerCase());
 									return matchesStatus && matchesPriority && matchesSearch;

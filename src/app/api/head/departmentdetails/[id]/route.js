@@ -12,7 +12,7 @@ export async function GET(request, { params }) {
                 id
                 name
             }
-            users(where: {deptartment_id: {_eq: 2}}, order_by: {role: asc}) {
+            users(where: {deptartment_id: {_eq:$id}}, order_by: {role: asc}) {
                 id
                 name
                 role
@@ -38,6 +38,81 @@ export async function GET(request, { params }) {
 		return NextResponse.json(result, { status: 200 });
 	} catch (error) {
 		console.error("API Route Error:", error);
+		return NextResponse.json(
+			{ error: "Internal Server Error" },
+			{ status: 500 },
+		);
+	}
+}
+
+
+export async function DELETE(request, { params }) {
+	try {
+		const { id } = await params;
+		const deptId = parseInt(id);
+		console.log(
+			deptId,
+			"Dept Id ==========================================================================",
+		);
+
+		// 1. First, fetch the current head_id so we know who to demote
+		const getHeadQuery = `
+            query GetDeptHead($id: Int!) {
+                departments_by_pk(id: $id) {
+                    head_id
+                }
+            }
+        `;
+		const headData = await hasuraFetch(getHeadQuery, { id: deptId });
+		const headId = headData?.data?.departments_by_pk?.head_id;
+
+		// 2. Define the Multi-Mutation
+		const deleteMutation = `
+            mutation DeleteAndCleanup($id: Int!, $head_id: Int) {
+
+                demoteHead: update_users(
+                    where: { id: { _eq: $head_id } },
+                    _set: { role: "Intern", deptartment_id: null }
+                ) {
+                    affected_rows
+                }
+
+                detachStaff: update_users(
+                    where: { deptartment_id: { _eq: $id } },
+                    _set: { deptartment_id: null }
+                ) {
+                    affected_rows
+                }
+
+                deleteDept: delete_departments_by_pk(id: $id) {
+                    id
+                    name
+                }
+            }
+        `;
+
+		// 3. Execute the cleanup and deletion
+		const result = await hasuraFetch(deleteMutation, {
+			id: deptId,
+			head_id: headId || 0, // Use 0 or null if no head exists
+		});
+
+		if (result.errors) {
+			return NextResponse.json(
+				{ error: result.errors[0].message },
+				{ status: 400 },
+			);
+		}
+
+		return NextResponse.json(
+			{
+				message: "Department deleted and staff updated successfully",
+				deletedId: deptId,
+			},
+			{ status: 200 },
+		);
+	} catch (error) {
+		console.error("Delete Route Error:", error);
 		return NextResponse.json(
 			{ error: "Internal Server Error" },
 			{ status: 500 },

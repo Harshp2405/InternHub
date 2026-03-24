@@ -54,6 +54,8 @@ export async function proxy(req) {
 		},
 	});
 
+	// console.log(token)
+console.log()
 
 	if (!token && !isPublic) {
 		return NextResponse.redirect(new URL("/Login", req.url));

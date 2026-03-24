@@ -8,6 +8,7 @@ const IdDept = () => {
 	const router = useRouter();
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
+    const [isDeleting, setIsDeleting] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -15,7 +16,8 @@ const IdDept = () => {
 				const response = await fetch(`/api/head/departmentdetails/${id}`);
 				if (!response.ok) throw new Error(`Error: ${response.status}`);
 				const result = await response.json();
-				setData(result);
+                console.log(result)
+                setData(result);
 			} catch (error) {
 				console.error("Fetch error:", error.message);
 			} finally {
@@ -24,6 +26,46 @@ const IdDept = () => {
 		};
 		if (id) fetchData();
 	}, [id]);
+
+    const handleDelete = async () => {
+			if (
+				!confirm(
+					"Are you sure? All staff will be unassigned and the head will become an Intern.",
+				)
+			) {
+				return;
+			}
+
+			setIsDeleting(true);
+
+			try {
+
+				const res = await fetch(`/api/head/departmentdetails/${id}`, {
+					method: "DELETE",
+				});
+
+				const contentType = res.headers.get("content-type");
+				if (
+					!res.ok ||
+					!contentType ||
+					!contentType.includes("application/json")
+				) {
+					const errorText = await res.text();
+					throw new Error(
+						`Server returned ${res.status}: ${errorText.substring(0, 100)}`,
+					);
+				}
+				const result = await res.json();
+				alert("Department deleted successfully");
+				router.push("/Admin");
+				router.refresh();
+			} catch (error) {
+				console.error("Delete failed:", error);
+				alert(`Delete failed: ${error.message}`);
+			} finally {
+				setIsDeleting(false);
+			}
+		};
 
 	if (loading)
 		return (
@@ -51,7 +93,7 @@ const IdDept = () => {
 			</button>
 
 			{/* Department Hero Section */}
-			<div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 mb-8 shadow-2xl relative overflow-hidden">
+			<div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 mb-8 shadow-2xl relative overflow-hidden flex flex-row">
 				<div className="absolute top-0 right-0 p-8 text-slate-800 font-black text-7xl opacity-20 pointer-events-none">
 					{dept.id}
 				</div>
@@ -72,6 +114,26 @@ const IdDept = () => {
 							color="text-pink-400"
 						/>
 					</div>
+				</div>
+
+				<div className="relative z-10">
+					<button
+						onClick={handleDelete}
+						disabled={isDeleting}
+						className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
+							isDeleting
+								? "bg-slate-800 text-slate-500 cursor-not-allowed"
+								: "bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white shadow-lg shadow-red-500/10"
+						}`}>
+						{isDeleting ? (
+							<>
+								<span className="w-4 h-4 border-2 border-slate-500 border-t-transparent rounded-full animate-spin"></span>
+								Deleting...
+							</>
+						) : (
+							"Delete Department"
+						)}
+					</button>
 				</div>
 			</div>
 
