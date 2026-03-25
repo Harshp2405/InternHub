@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
 					{/* Wrapper handles the logic */}
 					<NavbarWrapper />
 					<main>
-						<IdleMonitor/>
+						{/* <IdleMonitor/> */}
 						{children}
 					</main>
 				</ReduxProvider>

@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { getSessionUser } from "../../lib/useAuth";
 import Link from "next/link";
 import { useIdleTimeout } from "../../../hooks/useIdleTimeout";
+import { useFormik } from "formik";
+import Image from "next/image";
 
 export default function Admin() {
     const [users, setUsers] = useState([]);
@@ -49,6 +51,38 @@ export default function Admin() {
             }
         }
     };
+
+
+
+	// Image Upload
+	const formik = useFormik({
+		initialValues: {
+			profile_Image: "",
+			user_id: parseInt(currentUser.id),
+		},
+		onSubmit: async (values, { setSubmitting, resetForm }) => {
+			try {
+				const formData = new FormData();
+				formData.append("file", values.profile_Image);
+				formData.append("user_id", values.user_id);
+
+				console.log(values , "Values");
+
+				const res = await fetch("/api/imageUpload", {
+					method: "POST",
+					body: formData,
+				});
+
+				const data = await res.json();
+
+				console.log("Cloudinary URL:", data.url);
+			} catch (err) {
+				console.error("Image or parsing error:", err);
+			} finally {
+				setSubmitting(false);
+			}
+		},
+	});
 
     // Inside your Admin component
     const filteredUsers = users.filter((user) => {
@@ -167,9 +201,56 @@ return (
 		{/* Search & Global Filters Section */}
 
 		{/* Secondary Info Grid */}
-		<div className="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+		<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+			<div className="">
+				Upload Image
+				<form onSubmit={formik.handleSubmit} className="space-y-4">
+					<div>
+						<label className="block text-sm font-medium text-white mb-1">
+							Image
+						</label>
 
-		
+						<input
+							name="profile_Image"
+							type="file"
+							accept="image/*"
+							onChange={(event) => {
+								formik.setFieldValue(
+									"profile_Image",
+									event.currentTarget.files[0],
+								);
+							}}
+							className={`w-full px-4 py-2 border rounded-lg outline-none bg-white transition-all text-black ${
+								formik.touched.profile_Image && formik.errors.profile_Image
+									? "border-red-500 ring-1 ring-red-500"
+									: "border-gray-300 focus:ring-2 focus:ring-blue-500"
+							}`}
+						/>
+						{formik.touched.profile_Image && formik.errors.profile_Image && (
+							<p className="text-red-500 text-xs mt-1">
+								{formik.errors.profile_Image}
+							</p>
+						)}
+					</div>
+					<button
+						type="submit"
+						disabled={formik.isSubmitting}
+						className="w-full bg-blue-600 hover:bg-blue-700 text-white  font-bold py-3 rounded-lg transition-colors disabled:bg-blue-300">
+						{formik.isSubmitting ? "Creating..." : "Create user"}
+					</button>
+				</form>
+			</div>
+
+			<div className="relative w-24 h-24">
+				<Image
+					src="https://res.cloudinary.com/dw0ftv7h8/image/upload/v1774441507/internhub/jxc1ndei8mcdrh4tt2u9.jpg"
+					alt="Profile"
+					fill
+					className="object-cover rounded-full"
+				/>
+			</div>
+			
+		</div>
 	</div>
 );
 }
