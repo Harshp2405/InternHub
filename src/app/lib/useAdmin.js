@@ -17,6 +17,26 @@ async function hasuraRequest(query, variables = {}) {
 }
 
 // 1. Fetch All Users
+// {
+//     query GetUsersAndDepts {
+//         users {
+//           id
+//           name
+//           email
+//           role
+//           college
+//           deptartment_id
+//           profile_Images {
+//             profile_Image
+//           }
+//         }
+//         departments {
+//           id
+//           name
+//         }
+//       }
+      
+// }
 
 export const userlist = async () => {
 	const query = `
