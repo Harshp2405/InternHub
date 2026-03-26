@@ -1,7 +1,6 @@
 const HASURA_URL = process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT;
 const HASURA_ADMIN_SECRET = process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET;
 
-
 async function hasuraRequest(query, variables = {}) {
 	const res = await fetch(HASURA_URL, {
 		method: "POST",
@@ -35,7 +34,7 @@ async function hasuraRequest(query, variables = {}) {
 //           name
 //         }
 //       }
-      
+
 // }
 
 export const userlist = async () => {
@@ -67,7 +66,6 @@ export const userlist = async () => {
 };
 
 // 2. Fetch Single User (The missing export!)
-
 
 export const getSingleUser = async (id) => {
 	const query = `
@@ -423,4 +421,21 @@ export const getDepartmentsList = async () => {
 			head_name: headUser ? headUser.name : "No Head Assigned",
 		};
 	});
+};
+
+// get Department Name
+
+export const getDeptName = async (deptId) => {
+	const query = `
+        query GetDeptName($deptId: Int!) {
+            departments(where: { 
+                id: { _eq: $deptId }
+            }) {
+                id
+                name
+            }
+        }
+    `;
+	const data = await hasuraRequest(query, { deptId });
+	return data.departments;
 };
