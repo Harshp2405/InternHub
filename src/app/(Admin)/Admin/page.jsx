@@ -17,8 +17,9 @@ export default function Admin() {
     const [searchTerm, setSearchTerm] = useState("");
     const [roleFilter, setRoleFilter] = useState("All");
     const [deptFilter, setDeptFilter] = useState("All");
-
+	const [profileImage, setProfileImage] = useState(null);
     const router = useRouter();
+	
     const currentUser = useSelector((state) => state.auth.user);
     // console.log(currentUser);
 
@@ -74,8 +75,10 @@ export default function Admin() {
 				});
 
 				const data = await res.json();
+				
 
 				console.log("Cloudinary URL:", data.url);
+				
 			} catch (err) {
 				console.error("Image or parsing error:", err);
 			} finally {
@@ -85,25 +88,19 @@ export default function Admin() {
 	});
 
     // Inside your Admin component
-    const filteredUsers = users.filter((user) => {
-        // 1. Hide self
-        if (String(user.id) === String(currentUser?.id)) return false;
-
-        // 2. Search by Name, College, OR Department Name
-        const s = searchTerm.toLowerCase();
-        const matchesSearch = 
-            (user.name || "").toLowerCase().includes(s) || 
-            (user.college || "").toLowerCase().includes(s) ||
-            (user.department_name || "").toLowerCase().includes(s);
-
-        // 3. Filter by Role Dropdown
-        const matchesRole = roleFilter === "All" || user.role === roleFilter;
-
-        // 4. Filter by Department Dropdown
-        const matchesDept = deptFilter === "All" || String(user.deptartment_id) === String(deptFilter);
-
-        return matchesSearch && matchesRole && matchesDept;
-    });
+    useEffect(() => {
+		const fetchImage = async () => {
+			const userData = await fetch(
+				`/api/imageUpload/${parseInt(currentUser.id)}`,
+			);
+			const data = await userData.json();
+			if (data?.ProfileImage.length>0) {
+				setProfileImage(data?.ProfileImage[0]?.profile_image);
+			}
+		};
+		fetchImage();
+	}, [])
+	
 
     // ... keep your imports and logic as they are
 
@@ -243,13 +240,13 @@ return (
 
 			<div className="relative w-24 h-24">
 				<Image
-					src="https://res.cloudinary.com/dw0ftv7h8/image/upload/v1774441507/internhub/jxc1ndei8mcdrh4tt2u9.jpg"
+					src={profileImage ? profileImage : "/userImage.svg"}
 					alt="Profile"
 					fill
+					sizes="true"
 					className="object-cover rounded-full"
 				/>
 			</div>
-			
 		</div>
 	</div>
 );

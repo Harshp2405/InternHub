@@ -80,8 +80,8 @@ const IdDept = () => {
 	const users = data.users || [];
 
 	// Simple Stats Logic
-	const maleCount = users.filter((u) => u.gender === "MALE").length;
-	const femaleCount = users.filter((u) => u.gender === "FEMALE").length;
+	const maleCount = users.filter((u) =>["MALE", "Male"].includes(u.gender)).length;
+	const femaleCount = users.filter((u) =>["FEMALE", "Female"].includes(u.gender)).length;
 
 	return (
 		<div className="min-h-screen bg-slate-950 text-slate-200 p-6 md:p-12">

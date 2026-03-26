@@ -5,7 +5,6 @@ import { hasuraFetch } from "../../lib/hasura";
 export async function POST(req) {
 	try {
 		const data = await req.formData();
-		console.log(data , "Data")
 
 		const file = data.get("file");
 		const user_id = data.get("user_id");
@@ -30,22 +29,25 @@ export async function POST(req) {
 
 		// GraphQL mutation
 		const mutation = `
-		mutation InsertProfileImage($profile_Image: String!, $user_id: Int!) {
-		  insert_profile_Image_one(
-		    object: {
-		      profile_Image: $profile_Image
-		      user_id: $user_id
-		    }
-		  ) {
-		    id
-		    profile_Image
-		    user_id
+		mutation InsertProfileImage($profile_image: String!, $user_id: Int!) {
+			insert_ProfileImage_one(
+			  object: {
+				profile_image: $profile_image
+				user_id: $user_id
+			  }
+			  on_conflict: {
+				constraint: ProfileImage_user_id_key
+				update_columns: [profile_image]
+			  }
+			) {
+			  id
+			  profile_image
+			}
 		  }
-		}
 		`;
 
 		const dataRes = await hasuraFetch(mutation, {
-			profile_Image: imageUrl,
+			profile_image: imageUrl,
 			user_id: parseInt(user_id),
 		});
 
