@@ -22,7 +22,7 @@ export default function EditUser() {
 		role: "",
 		college: "",
 		gender: "",
-		deptartment_id: "",
+		department_id: "",
 	});
 
 	useEffect(() => {
@@ -41,8 +41,8 @@ export default function EditUser() {
 						role: user.role || "",
 						college: user.college || "",
 						gender: user.gender || "",
-						deptartment_id: user.deptartment_id
-							? String(user.deptartment_id)
+						department_id: user.department_id
+							? String(user.department_id)
 							: "",
 					});
 				}
@@ -67,7 +67,7 @@ export default function EditUser() {
 				role: formData.role,
 				college: formData.role === "Head" ? null : formData.college,
 				gender: formData.gender,
-				deptartment_id: parseInt(formData.deptartment_id),
+				department_id: parseInt(formData.department_id),
 			});
 			alert("User updated successfully!");
 			router.push("/Admin");
@@ -144,9 +144,9 @@ export default function EditUser() {
 							</label>
 							<select
 								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-								value={formData.deptartment_id}
+								value={formData.department_id}
 								onChange={(e) =>
-									setFormData({ ...formData, deptartment_id: e.target.value })
+									setFormData({ ...formData, department_id: e.target.value })
 								}>
 								<option value="">Select Department</option>
 								{(formData.role === "Head"

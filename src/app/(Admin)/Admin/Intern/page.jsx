@@ -69,7 +69,7 @@ export default function Admin() {
 		// 4. Filter by Department Dropdown
 		const matchesDept =
 			deptFilter === "All" ||
-			String(user.deptartment_id) === String(deptFilter);
+			String(user.department_id) === String(deptFilter);
 
 		return matchesSearch && matchesRole && matchesDept;
 	});

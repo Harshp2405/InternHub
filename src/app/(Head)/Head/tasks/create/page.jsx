@@ -11,7 +11,7 @@ export default function CreateTaskPage() {
 
     // console.log("DEBUG: Component Rendered");
     // console.log("DEBUG: User Object:", user);
-    // console.log("DEBUG: Dept ID Value:", user?.deptartment_id);
+    // console.log("DEBUG: Dept ID Value:", user?.department_id);
     
     const [interns, setInterns] = useState([]);
     const [loading, setLoading] = useState(false);

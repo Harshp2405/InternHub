@@ -23,7 +23,7 @@ function DashboardContent() {
 				setDepartmentName(deptname[0].name);
             }
             dname();
-		}, [user?.deptartment_id]);
+		}, [user?.department_id]);
 
     
 
@@ -36,7 +36,7 @@ function DashboardContent() {
 
     // Fetch Interns Data
     useEffect(() => {
-        const deptId = user?.dept_id || user?.deptartment_id;
+        const deptId = user?.dept_id || user?.department_id;
         if (deptId) {
             fetch(`/api/head/interns?deptId=${deptId}`)
                 .then(res => res.json())

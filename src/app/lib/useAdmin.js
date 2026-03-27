@@ -24,7 +24,7 @@ async function hasuraRequest(query, variables = {}) {
 //           email
 //           role
 //           college
-//           deptartment_id
+//           department_id
 //           profile_Images {
 //             profile_Image
 //           }
@@ -46,7 +46,7 @@ export const userlist = async () => {
                 email
                 role
                 college
-                deptartment_id
+                department_id
             }
             departments {
                 id
@@ -57,7 +57,7 @@ export const userlist = async () => {
 	const data = await hasuraRequest(query);
 
 	return data.users.map((user) => {
-		const dept = data.departments.find((d) => d.id === user.deptartment_id);
+		const dept = data.departments.find((d) => d.id === user.department_id);
 		return {
 			...user,
 			department_name: dept ? dept.name : "Not Assigned",
@@ -77,7 +77,7 @@ export const getSingleUser = async (id) => {
                 role
                 college
                 gender
-                deptartment_id
+                department_id
             }
             departments {
                 id
@@ -89,7 +89,7 @@ export const getSingleUser = async (id) => {
 	const data = await hasuraRequest(query, { id: parseInt(id) });
 	const user = data.users_by_pk;
 
-	const dept = data.departments.find((d) => d.id === user.deptartment_id);
+	const dept = data.departments.find((d) => d.id === user.department_id);
 
 	return {
 		...user,
@@ -177,7 +177,7 @@ export const updateUser = async (id, updates) => {
             ) {
                 id
                 role
-                deptartment_id
+                department_id
             }
 
             # 2. Remove user as head from ANY previous department
@@ -217,7 +217,7 @@ export const updateUser = async (id, updates) => {
 		? {
 				id: parseInt(id),
 				set: updates,
-				dept_id: updates.deptartment_id,
+				dept_id: updates.department_id,
 			}
 		: {
 				id: parseInt(id),
@@ -263,7 +263,7 @@ export const getDeptInterns = async (deptId) => {
         query GetDeptInterns($deptId: Int!) {
             users(where: { 
                 role: { _eq: "Intern" }, 
-                deptartment_id: { _eq: $deptId }
+                department_id: { _eq: $deptId }
             }) {
                 id
                 name

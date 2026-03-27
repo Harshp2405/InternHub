@@ -12,13 +12,13 @@ export async function GET(request, { params }) {
                 id
                 name
             }
-            users(where: {deptartment_id: {_eq:$id}}, order_by: {role: asc}) {
+            users(where: {department_id: {_eq:$id}}, order_by: {role: asc}) {
                 id
                 name
                 role
                 gender
                 email
-                deptartment_id
+                department_id
             }
         }
     `;
@@ -72,14 +72,14 @@ export async function DELETE(request, { params }) {
 
                 demoteHead: update_users(
                     where: { id: { _eq: $head_id } },
-                    _set: { role: "Intern", deptartment_id: null }
+                    _set: { role: "Intern", department_id: null }
                 ) {
                     affected_rows
                 }
 
                 detachStaff: update_users(
-                    where: { deptartment_id: { _eq: $id } },
-                    _set: { deptartment_id: null }
+                    where: { department_id: { _eq: $id } },
+                    _set: { department_id: null }
                 ) {
                     affected_rows
                 }
