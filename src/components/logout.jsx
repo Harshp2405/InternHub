@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { logout } from "../redux/authSclice";
+import { resetAttendance } from "../redux/attendanceSlice";
 
 export default function LogoutButton() {
 	const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export default function LogoutButton() {
 	const handleLogout = async () => {
 		try {
 			await signOut({ redirect: false });
-
+			dispatch(resetAttendance());
 			dispatch(logout());
 
 			router.push("/Login");

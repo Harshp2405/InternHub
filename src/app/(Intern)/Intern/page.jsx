@@ -1,18 +1,29 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleUser, updateProfile } from "../../lib/useAdmin";
+// import {
+// 	checkIn as checkInAction,
+// 	checkOut as checkOutAction,
+// } from "../../../redux/attendanceSlice";
 
 export default function InternProfile() {
 	const { user: authUser } = useSelector((state) => state.auth);
 	const [userData, setUserData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [isEditing, setIsEditing] = useState(false);
-	const [checkIn, setCheckIn] = useState(false);
-	const [checkInTime, setCheckInTime] = useState(null);
-	const [checkOutTime, setCheckOutTime] = useState(null);
+	// const [checkIn, setCheckIn] = useState(false);
+	// const [checkInTime, setCheckInTime] = useState(null);
+	// const [checkOutTime, setCheckOutTime] = useState(null);
 
-	const [times, setTimes] = useState([]);
+	// const [times, setTimes] = useState([]);
+
+    
+    // const dispatch = useDispatch();
+    
+    // const { checkIn, checkInTime, checkOutTime, times } = useSelector(
+	// 		(state) => state.attendance,
+	// 	);
 
 	// Form State
 	const [formData, setFormData] = useState({
@@ -57,61 +68,46 @@ export default function InternProfile() {
 		}
 	};
 
-	const attedence = async (userId, checkIn, checkOut) => {
-        const values = {userId, checkIn, checkOut};
-		try {
-			const res = await fetch("/api/attedence", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(values),
-			});
-			const data = await res.json();
-		} catch (error) {
-			console.log(error, "in attedence");
-		}
-	};
+     
 
-	const checkInOut = async () => {
-		try {
-			if (!checkIn) {
-				setCheckIn(true);
-				setCheckInTime(new Date());
-				setTimes((prev) => [...prev, { checkIn: new Date(), checkOut: null }]);
-			} else {
-				setCheckIn(false);
-				setCheckOutTime(new Date());
+// {	const attedence = async (userId, checkIn, checkOut) => {
+//         const values = {userId, checkIn, checkOut};
+// 		try {
+// 			const res = await fetch("/api/attedence", {
+// 				method: "POST",
+// 				headers: { "Content-Type": "application/json" },
+// 				body: JSON.stringify(values),
+// 			});
+// 			const data = await res.json();
+// 		} catch (error) {
+// 			console.log(error, "in attedence");
+// 		}
+// 	};
 
-				setTimes((prev) => {
-					if (!Array.isArray(prev)) return [];
+// 	const checkInOut = async () => {
+// 		try {
+// 			const now = new Date();
 
-					const updated = [...prev];
-					const lastIndex = updated.length - 1;
+// 			const formattedNow = now.toLocaleString().split(" ").join("-").toString();
 
-					if (lastIndex >= 0) {
-						updated[lastIndex] = {
-							...updated[lastIndex],
-							checkOut: new Date(),
-						};
-					}
+// 			if (!checkIn) {
+// 				dispatch(checkInAction(formattedNow));
+// 			} else {
+// 				const lastSession = times[times.length - 1];
 
-					const data = updated[updated.length - 1];
-                    // console.log(data , "Data")
-					attedence(
-						authUser.id,
-						data.checkIn.toLocaleString().split(" ").join("-").toString(),
-						data.checkOut.toLocaleString().split(" ").join("-").toString(),
-					);
+// 				dispatch(checkOutAction(formattedNow));
 
-					return updated;
-				});
+// 				if (lastSession && lastSession.checkIn) {
+// 					// ✅ FIX: already formatted string → use directly
+// 					const formattedCheckIn = lastSession.checkIn;
 
-                
-			}
-		} catch (error) {
-            console.log("Error in checkInOutFun" , error)
-        }
-	};
-
+// 					await attedence(authUser.id, formattedCheckIn, formattedNow);
+// 				}
+// 			}
+// 		} catch (error) {
+// 			console.log("Error in checkInOutFun", error);
+// 		}
+// 	};}
 
 
 	if (loading)
@@ -140,7 +136,7 @@ export default function InternProfile() {
 						className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
 						Edit Profile
 					</button>
-					<button
+					{/* <button
 						onClick={checkInOut}
 						className={`px-6 py-2 rounded-xl font-bold transition-all shadow-lg ${
 							checkIn
@@ -148,27 +144,27 @@ export default function InternProfile() {
 								: "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-500/20"
 						} text-white`}>
 						{checkIn ? "Check Out" : "Check In"}
-					</button>
+					</button> */}
 				</div>
-				{checkInTime && (
+				{/* {checkInTime && (
 					<p className="text-green-400 text-sm">
-						Checked in at: {checkInTime.toLocaleString().split(" , ")}
+						Checked in at: {checkInTime}
 					</p>
 				)}
 
 				{checkOutTime && (
 					<p className="text-red-400 text-sm">
-						Checked out at: {checkOutTime.toLocaleTimeString()}
+						Checked out at: {checkOutTime}
 					</p>
-				)}
+				)} */}
 
 				{/* <div className="mt-6 space-y-2">
 						<h3 className="text-white font-semibold">Session History</h3>
 
 						{times.map((t, index) => (
 							<div key={index} className="text-sm text-slate-300">
-								#{index + 1} — In: {t.checkIn?.toLocaleTimeString()} | Out:{" "}
-								{t.checkOut ? t.checkOut.toLocaleTimeString() : "—"}
+								#{index + 1} — In: {t.checkIn} | Out:{" "}
+								{t.checkOut ? t.checkOut : "—"}
 							</div>
 						))}
 					</div> */}
