@@ -15,6 +15,10 @@ function DashboardContent() {
     const [genderFilter, setGenderFilter] = useState("All");
     const [departmentName, setDepartmentName] = useState("");
 
+	const [atte, setAtte] = useState(false);
+	const [attedencelist, setAttedencelist] = useState([]);
+	
+
     const router = useRouter();
 
     useEffect(() => {
@@ -52,6 +56,36 @@ function DashboardContent() {
         return matchesSearch && matchesGender;
     });
 
+
+	const attedenceList = async () => {
+		try {
+			const res = await fetch(`/api/attedence/list/${user.id}`, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+			});
+			const data = await res.json();
+			setAttedencelist(data);
+		} catch (error) {
+			console.log(error, "in attedence");
+		}
+	};
+	const deptattedenceList = async () => {
+		try {
+			const res = await fetch(`/api/attedence/list/department/${user.dept_id}`, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+			});
+			const data = await res.json();
+			setAttedencelist(data);
+		} catch (error) {
+			console.log(error, "in attedence");
+		}
+	};
+
+	const formatTime = (timeStr) => {
+		return timeStr.replace(/-/, " ").replace(/-/g, "");
+	};
+
     return (
 			<div className="p-8 bg-[#0f172a] min-h-screen text-slate-200">
 				<div className="max-w-6xl mx-auto">
@@ -66,6 +100,25 @@ function DashboardContent() {
 								Real-time management for your assigned personnel.
 							</p>
 						</div>
+						<div className="grid grid-cols-2 gap-4">
+							<button
+								onClick={() => {
+									setAtte((prev) => !prev);
+									attedenceList();
+								}}
+								className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+								My Attedence
+							</button>
+							<button
+								onClick={() => {
+									setAtte((prev) => !prev);
+									deptattedenceList();
+								}}
+								className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+								Intern Attedence
+							</button>
+						</div>
+
 						{searchTerm && (
 							<button
 								onClick={() => {
@@ -101,6 +154,112 @@ function DashboardContent() {
 							<option value="OTHER">Other</option>
 						</select>
 					</div>
+
+					{/* User Attedence Modal */}
+
+					{atte && (
+						<div className="">
+							<div className="p-6 bg-[#0f172a] min-h-screen text-slate-200">
+								<div className="max-w-6xl mx-auto bg-[#1e293b] shadow-2xl rounded-xl border border-slate-700 overflow-hidden">
+									{/* Header Section */}
+									<div className="relative px-6 py-5 border-b border-slate-700 bg-[#1e293b]">
+										{/* Close Button */}
+										<button
+											type="button"
+											className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-2"
+											onClick={() => setAtte((prev) => !prev)}>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-6 w-6"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor">
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M6 18L18 6M6 6l12 12"
+												/>
+											</svg>
+										</button>
+
+										<h2 className="text-2xl font-bold text-white tracking-tight">
+											Daily Attendance Log
+										</h2>
+										<div className="flex items-center mt-1">
+											<span className="flex h-2 w-2 rounded-full bg-emerald-500 mr-2"></span>
+											<p className="text-sm text-slate-400 font-medium">
+												{attedencelist.length} Live Records Found
+											</p>
+										</div>
+									</div>
+
+									{/* Table Container */}
+									<div className="overflow-x-auto">
+										<table className="w-full text-left border-collapse">
+											<thead>
+												<tr className="bg-[#334155] text-slate-300 uppercase text-xs tracking-wider">
+													<th className="py-4 px-6 font-semibold">User ID</th>
+													<th className="py-4 px-6 font-semibold">Employee</th>
+													<th className="py-4 px-6 font-semibold">
+														Department
+													</th>
+													<th className="py-4 px-6 font-semibold text-center">
+														Check In
+													</th>
+													<th className="py-4 px-6 font-semibold text-center">
+														Check Out
+													</th>
+												</tr>
+											</thead>
+											<tbody className="divide-y divide-slate-700">
+												{attedencelist.map((record, key) => (
+													<tr
+														key={key}
+														className="hover:bg-[#334155]/50 transition-all duration-200 group">
+														<td className="py-4 px-6">
+															<span className="text-slate-500 group-hover:text-blue-400 font-mono transition-colors">
+																#{key + 1}
+															</span>
+														</td>
+														<td className="py-4 px-6">
+															<div className="flex items-center">
+																<div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center mr-3 shadow-lg font-bold">
+																	{record.user?.name?.charAt(0) || "U"}
+																</div>
+																<span className="font-medium text-slate-200">
+																	{record.user?.name || "Unknown"}
+																</span>
+															</div>
+														</td>
+														<td className="py-4 px-6">
+															<span className="bg-slate-700/50 border border-slate-600 text-slate-300 py-1 px-3 rounded-md text-xs font-semibold">
+																{record.user?.DeptName?.name || "General"}
+															</span>
+														</td>
+														<td className="py-4 px-6 text-center">
+															<span className="text-emerald-400 font-mono bg-emerald-400/10 px-2 py-1 rounded">
+																{formatTime(record.checkIn)}
+															</span>
+														</td>
+														<td className="py-4 px-6 text-center">
+															<span className="text-rose-400 font-mono bg-rose-400/10 px-2 py-1 rounded">
+																{formatTime(record.checkOut)}
+															</span>
+														</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+									</div>
+
+									{/* Footer placeholder for pagination or extra info */}
+									<div className="px-6 py-4 bg-[#1e293b] border-t border-slate-700 text-right"></div>
+								</div>
+							</div>
+							;
+						</div>
+					)}
 
 					{/* Table Container */}
 					<div className="overflow-hidden bg-[#1e293b] rounded-2xl border border-slate-800 shadow-2xl">

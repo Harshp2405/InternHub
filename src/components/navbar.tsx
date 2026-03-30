@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { User } from "../../types/User";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Added to show active link state
-import CheckIn from "./CheckIn";
+import NavCheckIn from "./CheckIn";
 
 interface NavLink {
     label: string;
@@ -29,14 +29,16 @@ interface RootState {
 }
 
 const NavItems: NavLink[] = [
-    { label: "Profile", href: "/Intern", roles: ["Intern"] },
-    { label: "My Tasks", href: "/Intern/tasks", roles: ["Intern"] },
-    { label: "Intern List", href: "/Directory", roles: ["Intern"] },
-    { label: "Dashboard", href: "/Admin", roles: ["Admin"] },
-    { label: "All Tasks", href: "/Admin/tasks", roles: ["Admin"] },
-    { label: "Home", href: "/Head", roles: ["Head"] },
-    { label: "Manage Tasks", href: "/Head/tasks", roles: ["Head"] },
-    { label: "About", href: "/About" },
+	{ label: "Profile", href: "/Intern", roles: ["Intern"] },
+	{ label: "Ask Ai", href: "/AskAi", roles: ["Intern", "Admin", "Head"] },
+	{ label: "My Tasks", href: "/Intern/tasks", roles: ["Intern"] },
+	{ label: "Intern List", href: "/Directory", roles: ["Intern"] },
+	{ label: "Dashboard", href: "/Admin", roles: ["Admin"] },
+	{ label: "All Tasks", href: "/Admin/tasks", roles: ["Admin"] },
+	{ label: "Attendance", href: "/Admin/attedence", roles: ["Admin"] },
+	{ label: "Home", href: "/Head", roles: ["Head"] },
+	{ label: "Manage Tasks", href: "/Head/tasks", roles: ["Head"] },
+	{ label: "About", href: "/About" },
 ];
 
 const Navbar: React.FC<NavbarProps> = ({ title, links = NavItems }) => {
@@ -87,7 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, links = NavItems }) => {
 					</div>
 
 					<div className="flex items-center">
-						<CheckIn />
+						<NavCheckIn />
 					</div>
 
 					{/* Right Side: User Profile & Logout */}
@@ -103,7 +105,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, links = NavItems }) => {
 							</div>
 						)}
 
-						<div className="h-8 w-[1px] bg-slate-800 hidden sm:block"></div>
+						<div className="h-8 w-px bg-slate-800 hidden sm:block"></div>
 
 						<div className="flex items-center">
 							<LogoutButton />
