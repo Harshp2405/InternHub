@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation"; // Added to show active link state
 import NavCheckIn from "./CheckIn";
 
+
 interface NavLink {
     label: string;
     href: string;
@@ -91,6 +92,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, links = NavItems }) => {
 					<div className="flex items-center">
 						<NavCheckIn />
 					</div>
+
 
 					{/* Right Side: User Profile & Logout */}
 					<div className="flex items-center gap-6">

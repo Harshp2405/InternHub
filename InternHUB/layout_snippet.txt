@@ -1,0 +1,25 @@
+// ==========================================
+// 1. ADD THIS IMPORT TO THE TOP OF layout.js
+// ==========================================
+import FloatingChatWidget from "../components/FloatingChatWidget";
+
+// ==========================================
+// 2. PLACE THE WIDGET INSIDE THE BODY
+// ==========================================
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ReduxProvider>
+          {/* Wrapper handles the logic */}
+          <NavbarWrapper /> 
+          <main>{children}</main>
+
+          {/* 👇 ADD THIS EXACTLY HERE 👇 */}
+          <FloatingChatWidget />
+
+        </ReduxProvider>
+      </body>
+    </html>
+  );
+}

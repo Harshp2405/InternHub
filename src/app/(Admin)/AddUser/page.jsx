@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"; // Added useEffect, useState
 import { getDepartments, getUpdateDepartments } from "../../lib/useAdmin"; // Added import
 import * as Yup from "yup";
+import { sendMail } from "../../lib/send-mail";
+import { toast } from "react-toastify";
 
 export default function Register() {
 	const router = useRouter();
 	const [depts, setDepts] = useState([]); // Added state
 	const [availableDepts, setAvailableDepts] = useState([]);
 
-	
 	// Added fetch effect
 	useEffect(() => {
 		const load = async () => {
@@ -23,13 +24,15 @@ export default function Register() {
 		load();
 	}, []);
 
-
 	// 1. Define the Validation Schema
 	const validationSchema = Yup.object({
 		name: Yup.string()
 			.min(2, "Name is too short")
 			.max(50, "Name is too long")
-			.matches(/^[a-zA-Z0-9._]+$/,"Name can only contain letters, numbers, dots, and underscores")
+			.matches(
+				/^[a-zA-Z0-9._]+$/,
+				"Name can only contain letters, numbers, dots, and underscores",
+			)
 			.required("Full name is required"),
 		email: Yup.string()
 			.email("Invalid email address")
@@ -82,11 +85,68 @@ export default function Register() {
 				const data = await res.json();
 
 				if (res.ok) {
+					const emailText = `
+Hello ${values.name},
+
+Your account has been created successfully! 🎉
+
+Here are your login credentials:
+
+Username: ${values.email}
+Password: ${values.password}
+
+Please log in at: https://your-app-url.com/login
+
+⚠️ Important: Keep your password safe and do not share it with anyone.
+
+Thanks,
+The Your App Team
+      `;
+
+					const emailHTML = `
+<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <h2 style="color: #2c3e50;">Welcome ${values.name}! 🎉</h2>
+  <p>Your account has been created successfully. Here are your login credentials:</p>
+  <table style="border-collapse: collapse; margin: 10px 0;">
+    <tr>
+      <td style="padding: 4px 8px; font-weight: bold;">Username:</td>
+      <td style="padding: 4px 8px;">${values.email}</td>
+    </tr>
+    <tr>
+      <td style="padding: 4px 8px; font-weight: bold;">Password:</td>
+      <td style="padding: 4px 8px;">${values.password}</td>
+    </tr>
+  </table>
+  <p style="color: #e74c3c; font-size: 0.9em;">⚠️ Keep your password safe and do not share it with anyone.</p>
+  <p>Thanks,<br>The Your App Team</p>
+</div>
+      `;
+					try {
+						const res = await sendMail({
+							sendTo: values.email,
+							subject: "Credentials for your new account",
+							text: emailText,
+							html: emailHTML,
+						});
+						if (res?.success) {
+							console.log("✅ Email sent successfully:", res.messageId);
+							toast.success("Email sent!");
+						} else {
+							console.log("❌ Email failed:", res?.error);
+							console.log("❌ Email failed:  1", res);
+							toast.error("Failed to send email", res);
+						}
+					} catch (err) {
+						console.error("❌ Error sending email:", err);
+						toast.info("Something went wrong");
+					}
 					router.push("/Admin");
 					resetForm();
 				} else {
 					console.error("Registration failed:", data.error);
-					alert(data.error?.message || data.error || "Registration failed");
+					toast.error(
+						data.error?.message || data.error || "Registration failed",
+					);
 				}
 			} catch (err) {
 				console.error("Network or parsing error:", err);
@@ -215,14 +275,13 @@ export default function Register() {
 											: "border-gray-300 focus:ring-2 focus:ring-blue-500"
 									}`}>
 									<option value="">Select Department</option>
-									{(formik.values.role == "Head"
-										? availableDepts
-										: depts
-									).map((d) => (
-										<option key={d.id} value={d.id}>
-											{d.name}
-										</option>
-									))}
+									{(formik.values.role == "Head" ? availableDepts : depts).map(
+										(d) => (
+											<option key={d.id} value={d.id}>
+												{d.name}
+											</option>
+										),
+									)}
 								</select>
 								{formik.touched.dept_id && formik.errors.dept_id && (
 									<p className="text-red-500 text-xs mt-1">

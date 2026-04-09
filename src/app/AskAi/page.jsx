@@ -126,16 +126,16 @@ const AskAi = () => {
 
 			<header className="relative pt-12 pb-8 text-center">
 				<p className="text-indigo-400 font-semibold mb-2 uppercase tracking-[2px] text-sm">
-					Vanna 2.0 Agent
+					Vanna Agent
 				</p>
-				<h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-br from-white to-slate-400 bg-clip-text text-transparent">
+				<h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-linear-to-br from-white to-slate-400 bg-clip-text text-transparent">
 					InternHub Data Assistant
 				</h1>
 			</header>
 
-			<main className="relative max-w-[1100px] w-[95%] mx-auto pb-16 flex flex-col gap-8">
+			<main className="relative max-w-275 w-[95%] mx-auto pb-16 flex flex-col gap-8">
 				{/* Search Bar */}
-				<section className="sticky top-5 z-[100] bg-slate-800/70 backdrop-blur-xl p-6 rounded-[24px] border border-white/10 shadow-2xl flex gap-4">
+				<section className="sticky top-5 z-100 bg-slate-800/70 backdrop-blur-xl p-6 rounded-3xl border border-white/10 shadow-2xl flex gap-4">
 					<input
 						type="text"
 						value={query}
@@ -164,7 +164,7 @@ const AskAi = () => {
 				)}
 
 				{/* SQL Panel */}
-				{showResults && (
+				{/* {showResults && (
 					<div className="bg-black rounded-2xl p-6 border-l-4 border-violet-500 animate-in fade-in slide-in-from-bottom-4 duration-500">
 						<div className="flex justify-between font-mono text-xs uppercase mb-3 text-violet-400">
 							<span>Generated PostgreSQL Query</span>
@@ -174,22 +174,22 @@ const AskAi = () => {
 							{sql}
 						</code>
 					</div>
-				)}
+				)} */}
 
 				{/* Chart Section */}
 				<div
-					className={`${showResults && results.length >= 2 ? "block" : "hidden"} bg-slate-800/70 backdrop-blur-xl rounded-[24px] border border-white/10 p-8 shadow-xl animate-in fade-in zoom-in-95 duration-500`}>
+					className={`${showResults && results.length >= 2 ? "block" : "hidden"} bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-xl animate-in fade-in zoom-in-95 duration-500`}>
 					<div className="font-mono text-xs uppercase mb-6 text-slate-400">
 						Data Visualization
 					</div>
-					<div className="h-[400px]">
+					<div className="h-100">
 						<canvas ref={chartRef}></canvas>
 					</div>
 				</div>
 
 				{/* Results Table */}
 				{showResults && (
-					<div className="bg-slate-800/70 backdrop-blur-xl rounded-[24px] border border-white/10 p-4 overflow-hidden shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+					<div className="bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/10 p-4 overflow-hidden shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-700">
 						<div className="overflow-x-auto rounded-2xl">
 							<table className="w-full border-collapse text-sm text-left">
 								<thead>
@@ -208,7 +208,7 @@ const AskAi = () => {
 										results.map((row, idx) => (
 											<tr
 												key={idx}
-												className="border-b border-white/5 hover:bg-white/[0.02] transition-colors last:border-0">
+												className="border-b border-white/5 hover:bg-white/2 transition-colors last:border-0">
 												{columns.map((col) => (
 													<td key={col} className="p-5 text-slate-200">
 														{row[col] === null ? "-" : String(row[col])}
@@ -249,7 +249,7 @@ const AskAi = () => {
 							Intelligence is waiting. Ask your first question above.
 						</p>
 						<p className="text-sm mt-2 opacity-60">
-							Try: "List all interns from MIT university"
+							Try: &quot;List all interns from MIT university&quot;
 						</p>
 					</div>
 				)}

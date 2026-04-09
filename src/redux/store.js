@@ -21,7 +21,6 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: {
-				// Ignore redux-persist internal actions
 				ignoredActions: [
 					"persist/PERSIST",
 					"persist/REHYDRATE",

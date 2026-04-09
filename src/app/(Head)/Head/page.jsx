@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { getDeptName } from "../../lib/useAdmin";
+import { sendMail } from "../../lib/send-mail";
 
 function DashboardContent() {
     const searchParams = useSearchParams();
@@ -117,6 +118,7 @@ function DashboardContent() {
 								className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
 								Intern Attedence
 							</button>
+							
 						</div>
 
 						{searchTerm && (

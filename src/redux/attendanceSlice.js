@@ -28,7 +28,7 @@ const attendanceSlice = createSlice({
 			state.checkIn = false;
 			state.checkOutTime = now;
 
-			if (state.times.length >= 0) {
+			if (state.times.length > 0) {
 				state.times[state.times.length - 1].checkOut = now;
 			}
 		},

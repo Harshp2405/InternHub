@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useIdleTimeout } from "../../../hooks/useIdleTimeout";
 import { useFormik } from "formik";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function Admin() {
     const [users, setUsers] = useState([]);
@@ -118,6 +119,7 @@ return (
 			</div>
 
 			<div className="flex gap-3">
+				
 				<button
 					onClick={() => router.push("/AddDepartment")}
 					className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 px-5 py-2.5 rounded-xl text-sm font-medium transition-all">

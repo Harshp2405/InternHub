@@ -4,6 +4,8 @@ import "./globals.css";
 import ReduxProvider from "../redux/provider";
 import NavbarWrapper from "../components/navbarWrapper"; 
 import IdleMonitor from "../components/IdleMonitor";
+import FloatingChatWidget from "../../InternHUB/FloatingChatWidget";
+import { ToastContainer } from "react-toastify";
 
 
 const geistSans = Geist({
@@ -22,12 +24,11 @@ export default function RootLayout({ children }) {
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<ReduxProvider>
-					{/* Wrapper handles the logic */}
 					<NavbarWrapper />
 					<main>
-						
 						{/* <IdleMonitor/> */}
 						{children}
+					<ToastContainer autoClose={1500} closeOnClick={true} pauseOnHover={false}  />
 					</main>
 				</ReduxProvider>
 			</body>
