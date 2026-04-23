@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleUser, updateProfile } from "../../lib/useAdmin";
-// import {
-// 	checkIn as checkInAction,
-// 	checkOut as checkOutAction,
-// } from "../../../redux/attendanceSlice";
+import {
+	checkIn as checkInAction,
+	checkOut as checkOutAction,
+} from "../../../redux/attendanceSlice";
 
 export default function InternProfile() {
 	const { user: authUser } = useSelector((state) => state.auth);
@@ -21,8 +21,25 @@ export default function InternProfile() {
 
 	// const [times, setTimes] = useState([]);
 
-    
     // const dispatch = useDispatch();
+
+
+	const attendance = useSelector((state) => state.attendance);
+	const checkIn = new Date(attendance.checkInTime);
+	const day = checkIn.toLocaleDateString("en-US", {
+		weekday: "long",
+	  });
+	  
+	  console.log(day);
+	// const now = new Date();
+	//  	
+	// const diffMs = now - checkIn;
+	// console.log(diffMs , "diff");
+	// const hours = Math.floor(diffMs / (1000 * 60 * 60));
+	// const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+	// const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+	// console.log(`${hours}h ${minutes}m ${seconds}s`);
     
     // const { checkIn, checkInTime, checkOutTime, times } = useSelector(
 	// 		(state) => state.attendance,
@@ -84,6 +101,7 @@ export default function InternProfile() {
 						console.log(error, "in attedence");
 					}
 	}
+	
 
 // {	const attedence = async (userId, checkIn, checkOut) => {
 //         const values = {userId, checkIn, checkOut};
@@ -127,7 +145,7 @@ export default function InternProfile() {
 
 	if (loading)
 		return (
-			<div className="min-h-screen bg-[#0f172a] flex items-center justify-center text-indigo-500 font-bold">
+			<div className="min-h-screen bg-gray-50 flex items-center justify-center text-indigo-500 font-bold">
 				LOADING...
 			</div>
 		);
@@ -139,20 +157,20 @@ export default function InternProfile() {
 	};
 
 	return (
-		<div className="min-h-screen bg-[#0f172a] p-6 lg:p-12 text-slate-200">
+		<div className="min-h-screen bg-gray-50 p-6 lg:p-12 text-gray-700">
 			<div className="max-w-4xl mx-auto">
 				<div className="flex justify-between items-end mb-10 border-l-4 border-indigo-500 pl-4">
 					<div>
-						<h1 className="text-4xl font-extrabold text-white tracking-tight">
-							My <span className="text-indigo-400">Profile</span>
+						<h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
+							My <span className="text-indigo-600">Profile</span>
 						</h1>
-						<p className="text-slate-400 mt-2 italic">
+						<p className="text-gray-500 mt-2 italic">
 							Personal and Academic details.
 						</p>
 					</div>
 					<button
 						onClick={() => setIsEditing(true)}
-						className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+						className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-md shadow-indigo-500/20">
 						Edit Profile
 					</button>
 					<button
@@ -160,48 +178,17 @@ export default function InternProfile() {
 							setAtte((prev) => !prev);
 							attedenceList();
 						}}
-						className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+						className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-md shadow-indigo-500/20">
 						View Attedence
 					</button>
-					{/* <button
-						onClick={checkInOut}
-						className={`px-6 py-2 rounded-xl font-bold transition-all shadow-lg ${
-							checkIn
-								? "bg-red-600 hover:bg-red-500 shadow-red-500/20"
-								: "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-500/20"
-						} text-white`}>
-						{checkIn ? "Check Out" : "Check In"}
-					</button> */}
+					
 				</div>
-				{/* {checkInTime && (
-					<p className="text-green-400 text-sm">
-						Checked in at: {checkInTime}
-					</p>
-				)}
-
-				{checkOutTime && (
-					<p className="text-red-400 text-sm">
-						Checked out at: {checkOutTime}
-					</p>
-				)} */}
-
-				{/* <div className="mt-6 space-y-2">
-						<h3 className="text-white font-semibold">Session History</h3>
-
-						{times.map((t, index) => (
-							<div key={index} className="text-sm text-slate-300">
-								#{index + 1} — In: {t.checkIn} | Out:{" "}
-								{t.checkOut ? t.checkOut : "—"}
-							</div>
-						))}
-					</div> */}
-
 				{/* Profile Card */}
-				<div className="bg-[#1e293b] rounded-3xl border border-slate-800 shadow-2xl overflow-hidden">
+				<div className="bg-white rounded-3xl border border-gray-200 shadow-lg overflow-hidden">
 					<div className="h-32 bg-gradient-to-r from-indigo-600 to-purple-700"></div>
 					<div className="px-8 pb-10">
 						<div className="relative -mt-16 mb-6">
-							<div className="h-32 w-32 rounded-2xl bg-[#0f172a] border-4 border-[#1e293b] flex items-center justify-center text-4xl font-bold text-indigo-400">
+							<div className="h-32 w-32 rounded-2xl bg-gray-50 border-1  flex items-center justify-center text-4xl font-bold text-indigo-600">
 								{finalUser?.name?.charAt(0)}
 							</div>
 						</div>
@@ -228,18 +215,18 @@ export default function InternProfile() {
 						</div>
 					</div>
 				</div>
-				<p className="mt-8 text-center text-slate-500 text-sm">
+				<p className="mt-8 text-center text-gray-400 text-sm">
 					Something looks wrong? Contact your{" "}
-					<span className="text-indigo-400 font-bold">Department Head</span> to
+					<span className="text-indigo-600 font-bold">Department Head</span> to
 					update details.
 				</p>
 
 				{/* EDIT MODAL  */}
 				{isEditing && (
-					<div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-						<div className="bg-[#1e293b] border border-slate-700 w-full max-w-lg rounded-3xl p-8 shadow-2xl">
-							<h2 className="text-2xl font-bold text-white mb-6">
-								Update <span className="text-indigo-400">Information</span>
+					<div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+						<div className="bg-white border border-gray-200 w-full max-w-lg rounded-3xl p-8 shadow-lg">
+							<h2 className="text-2xl font-bold text-gray-900 mb-6">
+								Update <span className="text-indigo-600">Information</span>
 							</h2>
 							<form onSubmit={handleUpdate} className="space-y-4">
 								<ModalInput
@@ -259,11 +246,11 @@ export default function InternProfile() {
 								/>
 
 								<div>
-									<label className="text-xs font-bold text-slate-500 uppercase block mb-1">
+									<label className="text-xs font-bold text-gray-400 uppercase block mb-1">
 										Gender
 									</label>
 									<select
-										className="w-full bg-[#0f172a] border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500"
+										className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-900 outline-none focus:border-indigo-500"
 										value={formData.gender}
 										onChange={(e) =>
 											setFormData({ ...formData, gender: e.target.value })
@@ -279,12 +266,12 @@ export default function InternProfile() {
 									<button
 										type="button"
 										onClick={() => setIsEditing(false)}
-										className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition-all">
+										className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-all">
 										Cancel
 									</button>
 									<button
 										type="submit"
-										className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+										className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all shadow-md shadow-indigo-500/20">
 										Save Changes
 									</button>
 								</div>
@@ -297,16 +284,16 @@ export default function InternProfile() {
 			{/* Attedence */}
 			{atte && (
 				<div className="">
-					<div className="p-6 bg-[#0f172a] min-h-screen text-slate-200">
-						<div className="max-w-6xl mx-auto bg-[#1e293b] shadow-2xl rounded-xl border border-slate-700 overflow-hidden">
+					<div className="p-6 bg-gray-50 min-h-screen text-gray-700">
+						<div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl border border-gray-200 overflow-hidden">
 							{/* Header Section */}
-							<div className="px-6 py-5 border-b border-slate-700 bg-[#1e293b]">
-								<h2 className="text-2xl font-bold text-white tracking-tight">
+							<div className="px-6 py-5 border-b border-gray-200 bg-white">
+								<h2 className="text-2xl font-bold text-gray-900 tracking-tight">
 									Daily Attendance Log
 								</h2>
 								<div className="flex items-center mt-1">
 									<span className="flex h-2 w-2 rounded-full bg-emerald-500 mr-2"></span>
-									<p className="text-sm text-slate-400 font-medium">
+									<p className="text-sm text-gray-500 font-medium">
 										{attedencelist.length} Live Records Found
 									</p>
 								</div>
@@ -316,10 +303,10 @@ export default function InternProfile() {
 							<div className="overflow-x-auto">
 								<table className="w-full text-left border-collapse">
 									<thead>
-										<tr className="bg-[#334155] text-slate-300 uppercase text-xs tracking-wider">
+										<tr className="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
 											<th className="py-4 px-6 font-semibold">User ID</th>
-											<th className="py-4 px-6 font-semibold">Employee</th>
-											<th className="py-4 px-6 font-semibold">Department</th>
+											<th className="py-4 px-6 font-semibold">Day</th>
+											
 											<th className="py-4 px-6 font-semibold text-center">
 												Check In
 											</th>
@@ -328,13 +315,13 @@ export default function InternProfile() {
 											</th>
 										</tr>
 									</thead>
-									<tbody className="divide-y divide-slate-700">
+									<tbody className="divide-y divide-gray-200">
 										{attedencelist.map((record , key) => (
 											<tr
 												key={key}
-												className="hover:bg-[#334155]/50 transition-all duration-200 group">
+												className="hover:bg-gray-100/50 transition-all duration-200 group">
 												<td className="py-4 px-6">
-													<span className="text-slate-500 group-hover:text-blue-400 font-mono transition-colors">
+													<span className="text-gray-400 group-hover:text-blue-600 font-mono transition-colors">
 														#{key+1}
 													</span>
 												</td>
@@ -343,23 +330,20 @@ export default function InternProfile() {
 														<div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center mr-3 shadow-lg font-bold">
 															{record.user?.name?.charAt(0) || "U"}
 														</div>
-														<span className="font-medium text-slate-200">
-															{record.user?.name || "Unknown"}
+														<span className="font-medium text-gray-700">
+															{/* {record.user?.name || "Unknown"} */}
+															{record.checkIn}
 														</span>
 													</div>
 												</td>
-												<td className="py-4 px-6">
-													<span className="bg-slate-700/50 border border-slate-600 text-slate-300 py-1 px-3 rounded-md text-xs font-semibold">
-														{record.user?.DeptName?.name || "General"}
-													</span>
-												</td>
+												
 												<td className="py-4 px-6 text-center">
-													<span className="text-emerald-400 font-mono bg-emerald-400/10 px-2 py-1 rounded">
+													<span className="text-emerald-600 font-mono bg-emerald-50 px-2 py-1 rounded">
 														{formatTime(record.checkIn)}
 													</span>
 												</td>
 												<td className="py-4 px-6 text-center">
-													<span className="text-rose-400 font-mono bg-rose-400/10 px-2 py-1 rounded">
+													<span className="text-rose-600 font-mono bg-rose-50 px-2 py-1 rounded">
 														{formatTime(record.checkOut)}
 													</span>
 												</td>
@@ -370,7 +354,7 @@ export default function InternProfile() {
 							</div>
 
 							{/* Footer placeholder for pagination or extra info */}
-							<div className="px-6 py-4 bg-[#1e293b] border-t border-slate-700 text-right">
+							<div className="px-6 py-4 bg-white border-t border-gray-200 text-right">
 								
 							</div>
 						</div>
@@ -386,15 +370,15 @@ export default function InternProfile() {
 function InfoField({ label, value, isBadge }) {
 	return (
 		<div className="space-y-1">
-			<p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+			<p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
 				{label}
 			</p>
 			{isBadge ? (
-				<span className="inline-block px-3 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold text-sm">
+				<span className="inline-block px-3 py-1 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-200 font-bold text-sm">
 					{value}
 				</span>
 			) : (
-				<p className="text-xl font-semibold text-white">{value}</p>
+				<p className="text-xl font-semibold text-gray-900">{value}</p>
 			)}
 		</div>
 	);
@@ -403,14 +387,14 @@ function InfoField({ label, value, isBadge }) {
 function ModalInput({ label, value, onChange }) {
 	return (
 		<div>
-			<label className="text-xs font-bold text-slate-500 uppercase block mb-1">
+			<label className="text-xs font-bold text-gray-400 uppercase block mb-1">
 				{label}
 			</label>
 			<input
 				type="text"
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
-				className="w-full bg-[#0f172a] border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500 transition-all"
+				className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-900 outline-none focus:border-indigo-500 transition-all"
 			/>
 		</div>
 	);

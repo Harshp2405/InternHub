@@ -106,14 +106,14 @@ export default function Admin() {
     // ... keep your imports and logic as they are
 
 return (
-	<div className="min-h-screen p-8 text-white bg-slate-950 relative">
+	<div className="min-h-screen p-8 text-gray-900 bg-gray-50 relative">
 		{/* Header Section */}
 		<div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
 			<div>
 				<h1 className="text-3xl font-extrabold tracking-tight">
 					Admin Dashboard
 				</h1>
-				<p className="text-slate-400 mt-1">
+				<p className="text-gray-500 mt-1">
 					Manage system resources and user permissions.
 				</p>
 			</div>
@@ -122,41 +122,41 @@ return (
 				
 				<button
 					onClick={() => router.push("/AddDepartment")}
-					className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 px-5 py-2.5 rounded-xl text-sm font-medium transition-all">
+					className="flex items-center gap-2 bg-white hover:bg-gray-50 border border-gray-200 px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm">
 					<span className="text-lg">+</span> Department
 				</button>
 				<button
 					onClick={() => router.push("/AddUser")}
-					className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-5 py-2.5 rounded-xl text-sm font-medium shadow-lg shadow-indigo-500/20 transition-all">
+					className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium shadow-md shadow-indigo-500/20 transition-all">
 					<span className="text-lg">+</span> New User
 				</button>
 			</div>
 		</div>
 
 		{/* Welcome Hero Section */}
-		<div className="relative overflow-hidden bg-linear-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/20 rounded-3xl p-8 mb-10">
+		<div className="relative overflow-hidden bg-linear-to-br from-indigo-50 to-white border border-indigo-100 rounded-3xl p-8 mb-10">
 			{/* Decorative Background Element */}
-			<div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
+			<div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-100 rounded-full blur-3xl"></div>
 
 			<div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
 				{/* Profile Avatar Circle */}
-				<div className="w-20 h-20 rounded-2xl bg-indigo-600 flex items-center justify-center text-3xl font-bold shadow-lg shadow-indigo-500/20">
+				<div className="w-20 h-20 rounded-2xl bg-indigo-600 flex items-center justify-center text-3xl font-bold text-white shadow-md shadow-indigo-500/20">
 					{currentUser?.name?.charAt(0) || "M"}
 				</div>
 
 				<div className="flex-1 text-center md:text-left">
 					<div className="flex flex-col md:flex-row md:items-center gap-2 mb-1">
-						<h1 className="text-3xl font-extrabold tracking-tight">
-							Welcome back, {currentUser?.name || "Meet"}!
+						<h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+							Welcome back, {currentUser?.name}!
 						</h1>
-						<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 w-fit self-center">
+						<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700 border border-indigo-200 w-fit self-center">
 							{currentUser?.role || "Admin"}
 						</span>
 					</div>
 
-					<p className="text-slate-400 max-w-xl">
+					<p className="text-gray-500 max-w-xl">
 						Logged in as{" "}
-						<span className="text-slate-200 font-medium">
+						<span className="text-gray-800 font-medium">
 							{currentUser?.email || "meet@gmail.com"}
 						</span>
 						.
@@ -205,10 +205,6 @@ return (
 				Upload Image
 				<form onSubmit={formik.handleSubmit} className="space-y-4">
 					<div>
-						<label className="block text-sm font-medium text-white mb-1">
-							Image
-						</label>
-
 						<input
 							name="profile_Image"
 							type="file"
@@ -235,7 +231,7 @@ return (
 						type="submit"
 						disabled={formik.isSubmitting}
 						className="w-full bg-blue-600 hover:bg-blue-700 text-white  font-bold py-3 rounded-lg transition-colors disabled:bg-blue-300">
-						{formik.isSubmitting ? "Creating..." : "Create user"}
+						{formik.isSubmitting ? "Setting..." : "Set user Image"}
 					</button>
 				</form>
 			</div>
@@ -257,19 +253,19 @@ return (
 // Helper Components
 function StatCard({ title, value, icon, color }) {
     const colors = {
-        blue: "text-blue-400 bg-blue-400/10",
+        blue: "text-blue-600 bg-blue-400/10",
         purple: "text-purple-400 bg-purple-400/10",
-        indigo: "text-indigo-400 bg-indigo-400/10",
+        indigo: "text-indigo-600 bg-indigo-50",
         amber: "text-amber-400 bg-amber-400/10",
     };
     
     return (
-        <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-slate-600 transition-colors">
+        <div className="bg-white border border-gray-200 p-6 rounded-2xl hover:border-gray-300 transition-colors shadow-sm">
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ${colors[color]}`}>
                 {icon}
             </div>
-            <p className="text-slate-400 text-sm font-medium">{title}</p>
-            <h4 className="text-3xl font-bold mt-1">{value}</h4>
+            <p className="text-gray-500 text-sm font-medium">{title}</p>
+            <h4 className="text-3xl font-bold mt-1 text-gray-900">{value}</h4>
         </div>
     );
 }

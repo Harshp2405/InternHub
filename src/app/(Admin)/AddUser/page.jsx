@@ -167,13 +167,13 @@ The Your App Team
 		<div className="min-h-screen flex items-center justify-center  p-4">
 			<div className="max-w-md w-full  rounded-xl shadow-lg p-8 border ">
 				<div className="text-center mb-8">
-					<h2 className="text-3xl font-extrabold text-white">Create User</h2>
+					<h2 className="text-3xl font-extrabold text-gray-900">Create User</h2>
 				</div>
 
 				<form onSubmit={formik.handleSubmit} className="space-y-4">
 					{/* Name Field */}
 					<div>
-						<label className="block text-sm font-medium text-white mb-1">
+						<label className="block text-sm font-medium text-gray-900 mb-1">
 							Full Name
 						</label>
 						<input
@@ -193,7 +193,7 @@ The Your App Team
 
 					{/* Email Field */}
 					<div>
-						<label className="block text-sm font-medium text-white mb-1">
+						<label className="block text-sm font-medium text-gray-900 mb-1">
 							Email Address
 						</label>
 						<input
@@ -213,7 +213,7 @@ The Your App Team
 
 					{/* Password Field */}
 					<div>
-						<label className="block text-sm font-medium text-white mb-1">
+						<label className="block text-sm font-medium text-gray-900 mb-1">
 							Password
 						</label>
 						<input
@@ -233,13 +233,13 @@ The Your App Team
 						)}
 					</div>
 					<div>
-						<label className="block text-sm font-medium text-white mb-2">
+						<label className="block text-sm font-medium text-gray-900 mb-2">
 							Role
 						</label>
 
 						<div className="flex gap-4">
 							{["Intern", "Admin", "Head"].map((g) => (
-								<label key={g} className="flex items-center gap-2 text-white">
+								<label key={g} className="flex items-center gap-2 text-gray-900">
 									<input
 										type="radio"
 										name="role"
@@ -263,7 +263,7 @@ The Your App Team
 						<>
 							{/* Department Dropdown */}
 							<div>
-								<label className="block text-sm font-medium text-white mb-1">
+								<label className="block text-sm font-medium text-gray-900 mb-1">
 									Department
 								</label>
 								<select
@@ -292,7 +292,7 @@ The Your App Team
 
 							{/* College Field */}
 							<div>
-								<label className="block text-sm font-medium text-white mb-1">
+								<label className="block text-sm font-medium text-gray-900 mb-1">
 									College
 								</label>
 								<input
@@ -315,13 +315,13 @@ The Your App Team
 					)}
 
 					<div>
-						<label className="block text-sm font-medium text-white mb-2">
+						<label className="block text-sm font-medium text-gray-900 mb-2">
 							Gender
 						</label>
 
 						<div className="flex gap-4">
 							{["MALE", "FEMALE", "OTHER"].map((g) => (
-								<label key={g} className="flex items-center gap-2 text-white">
+								<label key={g} className="flex items-center gap-2 text-gray-900">
 									<input
 										type="radio"
 										name="gender"

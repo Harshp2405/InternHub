@@ -7,13 +7,13 @@ const IdleMonitor = () => {
   return (
 		<div>
 			{isIdle && (
-				<div className="fixed inset-0 z-9999 bg-black/60 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-300">
-					<div className="bg-slate-800 border border-red-500 p-8 rounded-2xl shadow-2xl text-center max-w-sm">
+				<div className="fixed inset-0 z-9999 bg-black/40 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-300">
+					<div className="bg-white border border-red-200 p-8 rounded-2xl shadow-lg text-center max-w-sm">
 						<div className="text-red-500 text-5xl mb-4">⚠️</div>
-						<h2 className="text-xl font-bold text-white mb-2">
+						<h2 className="text-xl font-bold text-gray-900 mb-2">
 							Inactivity Detected
 						</h2>
-						<p className="text-slate-300 mb-6">
+						<p className="text-gray-600 mb-6">
 							It looks like the cursor isn&apos;t moving. Please move your mouse
 							or press a key to continue.
 						</p>

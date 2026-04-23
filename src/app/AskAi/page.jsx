@@ -99,25 +99,25 @@ const AskAi = () => {
 					maintainAspectRatio: false,
 					plugins: {
 						legend: {
-							labels: { color: "#94a3b8", font: { family: "Outfit" } },
+							labels: { color: "#4b5563", font: { family: "Outfit" } },
 						},
 					},
 					scales: {
 						y: {
 							beginAtZero: true,
-							grid: { color: "rgba(255,255,255,0.05)" },
-							ticks: { color: "#94a3b8" },
+							grid: { color: "rgba(0,0,0,0.06)" },
+							ticks: { color: "#4b5563" },
 						},
 						x: {
 							grid: { display: false },
-							ticks: { color: "#94a3b8" },
+							ticks: { color: "#4b5563" },
 						},
 					},
 				},
 			});
 		};
 	return (
-		<div className="min-h-screen bg-[#0f172a] text-[#f1f5f9] font-sans selection:bg-indigo-500/30">
+		<div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-indigo-500/30">
 			{/* Background Gradients */}
 			<div className="fixed inset-0 pointer-events-none">
 				<div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(at_0%_0%,rgba(99,102,241,0.15)_0px,transparent_50%)]" />
@@ -125,24 +125,24 @@ const AskAi = () => {
 			</div>
 
 			<header className="relative pt-12 pb-8 text-center">
-				<p className="text-indigo-400 font-semibold mb-2 uppercase tracking-[2px] text-sm">
+				<p className="text-indigo-600 font-semibold mb-2 uppercase tracking-[2px] text-sm">
 					Vanna Agent
 				</p>
-				<h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-linear-to-br from-white to-slate-400 bg-clip-text text-transparent">
+				<h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-linear-to-br from-gray-900 to-gray-500 bg-clip-text text-transparent">
 					InternHub Data Assistant
 				</h1>
 			</header>
 
 			<main className="relative max-w-275 w-[95%] mx-auto pb-16 flex flex-col gap-8">
 				{/* Search Bar */}
-				<section className="sticky top-5 z-100 bg-slate-800/70 backdrop-blur-xl p-6 rounded-3xl border border-white/10 shadow-2xl flex gap-4">
+				<section className="sticky top-5 z-100 bg-white/70 backdrop-blur-xl p-6 rounded-3xl border border-gray-200 shadow-lg flex gap-4">
 					<input
 						type="text"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 						onKeyDown={(e) => e.key === "Enter" && performQuery()}
 						placeholder="Ask anything about interns, departments, or organizations..."
-						className="flex-1 bg-black/20 border border-white/10 p-4 rounded-2xl text-white text-lg focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all"
+						className="flex-1 bg-gray-50 border border-gray-200 p-4 rounded-2xl text-gray-900 text-lg focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all"
 					/>
 					<button
 						onClick={performQuery}
@@ -158,19 +158,19 @@ const AskAi = () => {
 
 				{/* Error Message */}
 				{error && (
-					<div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl animate-in fade-in slide-in-from-top-2">
+					<div className="bg-red-500/10 border border-red-200 text-red-600 p-4 rounded-xl animate-in fade-in slide-in-from-top-2">
 						Error: {error}
 					</div>
 				)}
 
 				{/* SQL Panel */}
 				{/* {showResults && (
-					<div className="bg-black rounded-2xl p-6 border-l-4 border-violet-500 animate-in fade-in slide-in-from-bottom-4 duration-500">
-						<div className="flex justify-between font-mono text-xs uppercase mb-3 text-violet-400">
+					<div className="bg-gray-50 rounded-2xl p-6 border-l-4 border-violet-400 animate-in fade-in slide-in-from-bottom-4 duration-500">
+						<div className="flex justify-between font-mono text-xs uppercase mb-3 text-violet-600">
 							<span>Generated PostgreSQL Query</span>
-							<span className="text-slate-500">Optimized by Llama 3.3</span>
+							<span className="text-gray-400">Optimized by Llama 3.3</span>
 						</div>
-						<code className="font-mono text-slate-300 break-all leading-relaxed">
+						<code className="font-mono text-gray-600 break-all leading-relaxed">
 							{sql}
 						</code>
 					</div>
@@ -178,8 +178,8 @@ const AskAi = () => {
 
 				{/* Chart Section */}
 				<div
-					className={`${showResults && results.length >= 2 ? "block" : "hidden"} bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-xl animate-in fade-in zoom-in-95 duration-500`}>
-					<div className="font-mono text-xs uppercase mb-6 text-slate-400">
+					className={`${showResults && results.length >= 2 ? "block" : "hidden"} bg-white/70 backdrop-blur-xl rounded-3xl border border-gray-200 p-8 shadow-md animate-in fade-in zoom-in-95 duration-500`}>
+					<div className="font-mono text-xs uppercase mb-6 text-gray-500">
 						Data Visualization
 					</div>
 					<div className="h-100">
@@ -189,15 +189,15 @@ const AskAi = () => {
 
 				{/* Results Table */}
 				{showResults && (
-					<div className="bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/10 p-4 overflow-hidden shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+					<div className="bg-white/70 backdrop-blur-xl rounded-3xl border border-gray-200 p-4 overflow-hidden shadow-md animate-in fade-in slide-in-from-bottom-4 duration-700">
 						<div className="overflow-x-auto rounded-2xl">
 							<table className="w-full border-collapse text-sm text-left">
 								<thead>
-									<tr className="bg-white/5">
+									<tr className="bg-gray-50">
 										{columns.map((col) => (
 											<th
 												key={col}
-												className="p-5 text-slate-400 font-semibold uppercase tracking-wider text-[10px]">
+												className="p-5 text-gray-500 font-semibold uppercase tracking-wider text-[10px]">
 												{col.replace(/_/g, " ")}
 											</th>
 										))}
@@ -208,9 +208,9 @@ const AskAi = () => {
 										results.map((row, idx) => (
 											<tr
 												key={idx}
-												className="border-b border-white/5 hover:bg-white/2 transition-colors last:border-0">
+												className="border-b border-gray-100 hover:bg-gray-50 transition-colors last:border-0">
 												{columns.map((col) => (
-													<td key={col} className="p-5 text-slate-200">
+													<td key={col} className="p-5 text-gray-700">
 														{row[col] === null ? "-" : String(row[col])}
 													</td>
 												))}
@@ -220,7 +220,7 @@ const AskAi = () => {
 										<tr>
 											<td
 												colSpan={columns.length || 1}
-												className="p-10 text-center text-slate-500">
+												className="p-10 text-center text-gray-400">
 												No records found in database.
 											</td>
 										</tr>
@@ -233,7 +233,7 @@ const AskAi = () => {
 
 				{/* Empty State */}
 				{!showResults && !loading && (
-					<div className="py-40 text-center text-slate-500 flex flex-col items-center">
+					<div className="py-40 text-center text-gray-400 flex flex-col items-center">
 						<svg
 							width="64"
 							height="64"

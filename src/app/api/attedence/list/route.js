@@ -6,20 +6,23 @@ export async function GET() {
 
     const query = `
     query GetAttedence {
-        Attedence(order_by: {id: asc}) {
-          id
-          user_Id
-          checkIn
-          checkOut
-          user {
+      Attedence(order_by: {id: desc}) {
+        id
+        user_Id
+        checkIn
+        checkOut
+        Dept {
+          department {
             name
-            role
-            DeptName {
-              name
-            }
           }
         }
+        user {
+          name
+          role
+        }
       }
+    }
+    
       
     `;
 

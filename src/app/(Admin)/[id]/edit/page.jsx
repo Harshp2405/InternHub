@@ -78,15 +78,15 @@ export default function EditUser() {
 
 	if (loading)
 		return (
-			<div className="p-10 text-white text-center font-bold">
+			<div className="p-10 text-gray-900 text-center font-bold">
 				Loading User Data...
 			</div>
 		);
 
 	return (
-		<div className="min-h-screen p-8 text-white flex justify-center items-start bg-black">
-			<div className="w-full max-w-3xl bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-2xl">
-				<h1 className="text-3xl font-bold mb-8 text-blue-400 border-b border-gray-800 pb-4">
+		<div className="min-h-screen p-8 text-gray-900 flex justify-center items-start bg-gray-50">
+			<div className="w-full max-w-3xl bg-white p-8 rounded-2xl border border-gray-200 shadow-lg">
+				<h1 className="text-3xl font-bold mb-8 text-blue-600 border-b border-gray-200 pb-4">
 					Edit User Profile
 				</h1>
 
@@ -98,7 +98,7 @@ export default function EditUser() {
 							</label>
 							<input
 								type="text"
-								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+								className="w-full bg-gray-100 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
 								value={formData.name}
 								onChange={(e) =>
 									setFormData({ ...formData, name: e.target.value })
@@ -112,7 +112,7 @@ export default function EditUser() {
 							</label>
 							<input
 								type="email"
-								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+								className="w-full bg-gray-100 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
 								value={formData.email}
 								onChange={(e) =>
 									setFormData({ ...formData, email: e.target.value })
@@ -128,7 +128,7 @@ export default function EditUser() {
 								Role
 							</label>
 							<select
-								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+								className="w-full bg-gray-100 border border-gray-300 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
 								value={formData.role}
 								onChange={(e) =>
 									setFormData({ ...formData, role: e.target.value })
@@ -143,7 +143,7 @@ export default function EditUser() {
 								Department
 							</label>
 							<select
-								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+								className="w-full bg-gray-100 border border-gray-300 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
 								value={formData.department_id}
 								onChange={(e) =>
 									setFormData({ ...formData, department_id: e.target.value })
@@ -165,7 +165,7 @@ export default function EditUser() {
 								Gender
 							</label>
 							<select
-								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+								className="w-full bg-gray-100 border border-gray-300 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
 								value={formData.gender}
 								onChange={(e) =>
 									setFormData({ ...formData, gender: e.target.value })
@@ -185,7 +185,7 @@ export default function EditUser() {
 							</label>
 							<input
 								type="text"
-								className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+								className="w-full bg-gray-100 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
 								value={formData.college}
 								onChange={(e) =>
 									setFormData({ ...formData, college: e.target.value })
@@ -195,11 +195,11 @@ export default function EditUser() {
 						</div>
 					)}
 
-					<div className="flex justify-end gap-4 pt-8 border-t border-gray-800 mt-4">
+					<div className="flex justify-end gap-4 pt-8 border-t border-gray-200 mt-4">
 						<button
 							type="button"
 							onClick={() => router.back()}
-							className="px-8 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors font-medium">
+							className="px-8 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors font-medium">
 							Cancel
 						</button>
 						<button

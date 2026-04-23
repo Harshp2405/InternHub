@@ -77,44 +77,44 @@ export default function EditTaskPage() {
         }
     };
 
-    if (loading) return <div className="p-8 text-white">Loading Task Details...</div>;
+    if (loading) return <div className="p-8 text-gray-700">Loading Task Details...</div>;
 
     return (
-        <div className="p-8 bg-[#0f172a] min-h-screen text-white">
+        <div className="p-8 bg-gray-50 min-h-screen text-gray-900">
             <div className="max-w-2xl mx-auto">
-                <button onClick={() => router.back()} className="text-slate-400 hover:text-white mb-4 flex items-center gap-2">
+                <button onClick={() => router.back()} className="text-gray-500 hover:text-gray-900 mb-4 flex items-center gap-2">
                     ← Cancel Edit
                 </button>
                 
                 <h1 className="text-3xl font-bold mb-6">Edit Task</h1>
                 
-                <div className="bg-[#1e293b] p-8 rounded-2xl border border-slate-700 shadow-xl">
+                <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-md">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-slate-400 mb-2">Task Title</label>
+                            <label className="block text-sm font-medium text-gray-500 mb-2">Task Title</label>
                             <input 
                                 value={formData.title}
-                                className="w-full bg-[#0f172a] border border-slate-700 p-3 rounded-lg outline-none"
+                                className="w-full bg-gray-50 border border-gray-200 p-3 rounded-lg outline-none"
                                 onChange={(e) => setFormData({...formData, title: e.target.value})}
                                 required
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-slate-400 mb-2">Description</label>
+                            <label className="block text-sm font-medium text-gray-500 mb-2">Description</label>
                             <textarea 
                                 value={formData.description}
-                                className="w-full bg-[#0f172a] border border-slate-700 p-3 rounded-lg h-24 outline-none"
+                                className="w-full bg-gray-50 border border-gray-200 p-3 rounded-lg h-24 outline-none"
                                 onChange={(e) => setFormData({...formData, description: e.target.value})}
                             />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-2">Assigned Intern</label>
+                                <label className="block text-sm font-medium text-gray-500 mb-2">Assigned Intern</label>
                                 <select 
                                     value={formData.assigned_to}
-                                    className="w-full bg-[#0f172a] border border-slate-700 p-3 rounded-lg"
+                                    className="w-full bg-gray-50 border border-gray-200 p-3 rounded-lg"
                                     onChange={(e) => setFormData({...formData, assigned_to: e.target.value})}
                                     required
                                 >
@@ -123,10 +123,10 @@ export default function EditTaskPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-2">Status</label>
+                                <label className="block text-sm font-medium text-gray-500 mb-2">Status</label>
                                 <select 
                                     value={formData.status}
-                                    className="w-full bg-[#0f172a] border border-slate-700 p-3 rounded-lg"
+                                    className="w-full bg-gray-50 border border-gray-200 p-3 rounded-lg"
                                     onChange={(e) => setFormData({...formData, status: e.target.value})}
                                 >
                                     <option value="Pending">Pending</option>
@@ -139,10 +139,10 @@ export default function EditTaskPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-2">Priority</label>
+                                <label className="block text-sm font-medium text-gray-500 mb-2">Priority</label>
                                 <select 
                                     value={formData.priority}
-                                    className="w-full bg-[#0f172a] border border-slate-700 p-3 rounded-lg"
+                                    className="w-full bg-gray-50 border border-gray-200 p-3 rounded-lg"
                                     onChange={(e) => setFormData({...formData, priority: e.target.value})}
                                 >
                                     <option value="Low">Low</option>
@@ -152,11 +152,11 @@ export default function EditTaskPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-2">Due Date</label>
+                                <label className="block text-sm font-medium text-gray-500 mb-2">Due Date</label>
                                 <input 
                                     type="date"
                                     value={formData.due_date}
-                                    className="w-full bg-[#0f172a] border border-slate-700 p-3 rounded-lg"
+                                    className="w-full bg-gray-50 border border-gray-200 p-3 rounded-lg"
                                     onChange={(e) => setFormData({...formData, due_date: e.target.value})}
                                     required
                                 />
@@ -167,7 +167,7 @@ export default function EditTaskPage() {
                             type="submit" 
                             disabled={updating}
                             className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
-                                updating ? "bg-slate-700" : "bg-blue-600 hover:bg-blue-500"
+                                updating ? "bg-gray-200" : "bg-blue-600 hover:bg-blue-500"
                             }`}
                         >
                             {updating ? "Updating..." : "Save Changes"}

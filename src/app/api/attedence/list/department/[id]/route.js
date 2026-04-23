@@ -15,9 +15,6 @@ export async function GET(req, { params }) {
           checkOut
           user {
             name
-            DeptName {
-              name
-            }
           }
         }
       }

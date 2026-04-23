@@ -47,19 +47,19 @@ export default function InternDirectory() {
 
 	if (loading)
 		return (
-			<div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
+			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
 				<div className="animate-spin rounded-full h-10 w-10 border-t-2 border-indigo-500"></div>
 			</div>
 		);
 
 	return (
-		<div className="min-h-screen bg-[#0f172a] p-8 text-slate-200">
+		<div className="min-h-screen bg-gray-50 p-8 text-gray-700">
 			<div className="max-w-6xl mx-auto">
 				<div className="mb-8 border-l-4 border-indigo-500 pl-4">
-					<h1 className="text-3xl font-bold text-white">
-						Intern <span className="text-indigo-400">Community</span>
+					<h1 className="text-3xl font-bold text-gray-900">
+						Intern <span className="text-indigo-600">Community</span>
 					</h1>
-					<p className="text-slate-400">
+					<p className="text-gray-500">
 						Network with peers across all departments.
 					</p>
 				</div>
@@ -69,14 +69,14 @@ export default function InternDirectory() {
 					<input
 						type="text"
 						placeholder="Search by name, college, or department..."
-						className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-4 pl-12 text-white focus:border-indigo-500 outline-none transition-all"
+						className="w-full bg-white border border-gray-200 rounded-xl p-4 pl-12 text-gray-900 focus:border-indigo-500 outline-none transition-all"
 						value={searchTerm}
 						onChange={(e) => {
 							setSearchTerm(e.target.value);
 							setCurrentPage(1); 
 						}}
 					/>
-					<span className="absolute left-4 top-4 text-slate-500">🔍</span>
+					<span className="absolute left-4 top-4 text-gray-400">🔍</span>
 				</div>
 
 				{/* Grid */}
@@ -84,52 +84,51 @@ export default function InternDirectory() {
 					{currentInterns.map((intern) => (
 						<div
 							key={intern.id}
-							className="bg-[#1e293b] border border-slate-800 p-6 rounded-2xl hover:border-indigo-500/50 transition-all group relative overflow-hidden">
+							className="bg-white border border-gray-200 p-6 rounded-2xl hover:border-indigo-300 transition-all group relative overflow-hidden">
 							{/* Gender Tag */}
 							<div className="absolute top-4 right-4">
 								<span
 									className={`text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider ${
 										intern.gender?.toLowerCase() === "male"
-											? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+											? "bg-blue-50 text-blue-600 border border-blue-200"
 											: intern.gender?.toLowerCase() === "female"
-												? "bg-pink-500/10 text-pink-400 border border-pink-500/20"
-												: "bg-slate-700/30 text-slate-400 border border-slate-700"
+												? "bg-pink-50 text-pink-600 border border-pink-500/20"
+												: "bg-gray-200/30 text-gray-500 border border-gray-200"
 									}`}>
 									{intern.gender || "N/A"}
 								</span>
 							</div>
 
 							<div className="flex items-center gap-4 mb-4">
-								<div className="h-14 w-14 rounded-full bg-[#0f172a] border border-slate-700 flex items-center justify-center text-xl font-bold text-indigo-400">
+								<div className="h-14 w-14 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-xl font-bold text-indigo-600">
 									{intern.name?.charAt(0)}
 								</div>
 								<div>
-									<h3 className="text-white font-bold text-lg leading-tight">
+									<h3 className="text-gray-900 font-bold text-lg leading-tight">
 										{intern.name}
 									</h3>
-									<p className="text-indigo-400 text-xs font-semibold uppercase tracking-wider">
+									<p className="text-indigo-600 text-xs font-semibold uppercase tracking-wider">
 										{intern.college || "Independent"}
 									</p>
 								</div>
 							</div>
 
-							<div className="space-y-3 pt-4 border-t border-slate-800/50">
+							<div className="space-y-3 pt-4 border-t border-gray-200">
 								<div className="flex items-center gap-2">
-									<span className="text-slate-500 text-xs font-bold uppercase w-12">
+									<span className="text-gray-400 text-xs font-bold uppercase w-12">
 										Dept:
 									</span>
-									<span className="text-slate-300 text-sm font-medium">
-										{intern.department_name ||
-											intern.DeptName?.name ||
+									<span className="text-gray-600 text-sm font-medium">
+										{intern.department?.name ||
 											"General"}
 									</span>
 								</div>
 
 								<div className="flex items-center gap-2">
-									<span className="text-slate-500 text-xs font-bold uppercase w-12">
+									<span className="text-gray-400 text-xs font-bold uppercase w-12">
 										Email:
 									</span>
-									<span className="text-slate-300 text-sm truncate">
+									<span className="text-gray-600 text-sm truncate">
 										{intern.email}
 									</span>
 								</div>
@@ -144,7 +143,7 @@ export default function InternDirectory() {
 						<button
 							onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
 							disabled={currentPage === 1}
-							className="px-4 py-2 bg-slate-800 text-white rounded-lg disabled:opacity-40">
+							className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg disabled:opacity-40">
 							Prev
 						</button>
 
@@ -154,8 +153,8 @@ export default function InternDirectory() {
 								onClick={() => setCurrentPage(page)}
 								className={`px-4 py-2 rounded-lg ${
 									currentPage === page
-										? "bg-indigo-500 text-white"
-										: "bg-slate-800 text-slate-300"
+										? "bg-indigo-500 text-gray-900"
+										: "bg-gray-100 text-gray-600"
 								}`}>
 								{page}
 							</button>
@@ -166,7 +165,7 @@ export default function InternDirectory() {
 								setCurrentPage((prev) => Math.min(prev + 1, totalPages))
 							}
 							disabled={currentPage === totalPages}
-							className="px-4 py-2 bg-slate-800 text-white rounded-lg disabled:opacity-40">
+							className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg disabled:opacity-40">
 							Next
 						</button>
 					</div>

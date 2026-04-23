@@ -31,7 +31,7 @@ const NavCheckIn = () => {
 		setIsProcessing(true);
 
 		const now = new Date();
-		const formattedNow = now.toLocaleString().split(" ").join("-");
+		const formattedNow = now.toLocaleString().split(" ").join(" ");
 
 		if (!checkIn) {
 			dispatch(checkInAction(formattedNow));
@@ -47,20 +47,20 @@ const NavCheckIn = () => {
 	};
 
 	return (
-		<div className="flex items-center gap-4 bg-slate-900/50 border border-slate-700 px-3 py-1.5 rounded-2xl">
+		<div className="flex items-center gap-4 bg-gray-100 border border-gray-200 px-3 py-1.5 rounded-2xl">
 			{/* Status & Time Info */}
 			<div className="hidden sm:flex flex-col items-end leading-tight">
 				<div className="flex items-center gap-2">
 					<span
-						className={`h-2 w-2 rounded-full ${checkIn ? "bg-green-500 animate-pulse" : "bg-slate-500"}`}
+						className={`h-2 w-2 rounded-full ${checkIn ? "bg-green-500 animate-pulse" : "bg-gray-400"}`}
 					/>
-					<p className="text-[10px] uppercase font-bold tracking-tighter text-slate-400">
+					<p className="text-[10px] uppercase font-bold tracking-tighter text-gray-500">
 						{checkIn ? "Active Shift" : "Offline"}
 					</p>
 				</div>
 				{checkInTime && checkIn && (
-					<p className="text-[11px] font-mono text-indigo-400">
-						In: {checkInTime.split("-")[1]}
+					<p className="text-[11px] font-mono text-indigo-600">
+						In: {checkInTime.split(" ")[1]}
 					</p>
 				)}
 			</div>
@@ -71,8 +71,8 @@ const NavCheckIn = () => {
 				disabled={isProcessing}
 				className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${
 					checkIn
-						? "bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white"
-						: "bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-500/20"
+						? "bg-red-50 text-red-600 border border-red-200 hover:bg-red-500 hover:text-gray-900"
+						: "bg-indigo-600 text-white hover:bg-indigo-500 shadow-md shadow-indigo-500/20"
 				} disabled:opacity-50`}>
 				{isProcessing ? (
 					<div className="h-3 w-3 border-2 border-current border-t-transparent rounded-full animate-spin" />

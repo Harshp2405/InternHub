@@ -54,18 +54,18 @@ function TasksContent() {
 	const getStatusStyle = (status) => {
 		switch (status) {
 			case "Completed":
-				return "bg-green-900/30 text-green-400";
+				return "bg-green-50 text-green-700";
 			case "In Progress":
-				return "bg-yellow-900/30 text-yellow-400";
+				return "bg-yellow-50 text-yellow-700";
 			case "In Review":
-				return "bg-purple-900/30 text-purple-400";
+				return "bg-purple-50 text-purple-700";
 			default:
-				return "bg-slate-700/50 text-slate-300";
+				return "bg-gray-100 text-gray-600";
 		}
 	};
 
 	return (
-		<div className="p-8 bg-[#0f172a] min-h-screen text-white font-sans">
+		<div className="p-8 bg-gray-50 min-h-screen text-gray-900 font-sans">
 			<div className="flex justify-between items-center mb-8">
 				<h1 className="text-2xl font-bold tracking-tight">Manage Tasks</h1>
 				<button
@@ -79,13 +79,13 @@ function TasksContent() {
 				<input
 					type="text"
 					placeholder="Search by intern name..."
-					className="bg-[#1e293b] border border-slate-700 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500 min-w-62.5"
+					className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500 min-w-62.5"
 					value={searchTerm} // Controlled input
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 
 				<select
-					className="bg-[#1e293b] border border-slate-700 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500"
+					className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500"
 					onChange={(e) => setStatusFilter(e.target.value)}>
 					<option value="All">All Statuses</option>
 					<option value="Pending">Pending</option>
@@ -95,7 +95,7 @@ function TasksContent() {
 				</select>
 
 				<select
-					className="bg-[#1e293b] border border-slate-700 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500"
+					className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500"
 					onChange={(e) => setPriorityFilter(e.target.value)}>
 					<option value="All">All Priorities</option>
 					<option value="High">High</option>
@@ -104,9 +104,9 @@ function TasksContent() {
 				</select>
 			</div>
 
-			<div className="bg-[#1e293b] rounded-xl border border-slate-800 overflow-hidden shadow-2xl">
+			<div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-lg">
 				<table className="w-full text-left border-collapse">
-					<thead className="bg-[#0f172a]/50 text-slate-400 text-xs uppercase tracking-wider font-semibold">
+					<thead className="bg-gray-50/50 text-gray-500 text-xs uppercase tracking-wider font-semibold">
 						<tr>
 							<th className="px-6 py-4">Task Details</th>
 							<th className="px-6 py-4">Assigned To</th>
@@ -115,12 +115,12 @@ function TasksContent() {
 							<th className="px-6 py-4 text-center">Actions</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-slate-800">
+					<tbody className="divide-y divide-gray-200">
 						{loading ? (
 							<tr>
 								<td
 									colSpan="5"
-									className="px-6 py-10 text-center text-slate-500 italic">
+									className="px-6 py-10 text-center text-gray-400 italic">
 									Loading tasks...
 								</td>
 							</tr>
@@ -140,21 +140,21 @@ function TasksContent() {
 								.map((task) => (
 									<tr
 										key={task.id}
-										className="hover:bg-slate-800/40 transition-colors group">
+										className="hover:bg-gray-50 transition-colors group">
 										<td className="px-6 py-4">
-											<div className="font-medium text-slate-200">
+											<div className="font-medium text-gray-700">
 												{task.title}
 											</div>
-											<div className="text-xs text-slate-500 truncate max-w-50">
+											<div className="text-xs text-gray-400 truncate max-w-50">
 												{task.description}
 											</div>
 										</td>
 										<td className="px-6 py-4">
 											<div className="flex items-center gap-2">
-												<div className="h-7 w-7 rounded-full bg-indigo-500/20 flex items-center justify-center text-[10px] text-indigo-400 border border-indigo-500/30">
+												<div className="h-7 w-7 rounded-full bg-indigo-100 flex items-center justify-center text-[10px] text-indigo-600 border border-indigo-200">
 													{task.NameOfUser?.name?.charAt(0) || "?"}
 												</div>
-												<span className="text-sm text-slate-300">
+												<span className="text-sm text-gray-600">
 													{task.NameOfUser?.name || "Unassigned"}
 												</span>
 											</div>
@@ -163,10 +163,10 @@ function TasksContent() {
 											<span
 												className={`px-2.5 py-1 text-[10px] font-bold rounded uppercase tracking-wide ${
 													task.priority === "High"
-														? "bg-red-900/30 text-red-400 border border-red-500/20"
+														? "bg-red-900/30 text-red-600 border border-red-200"
 														: task.priority === "Medium"
-															? "bg-orange-900/30 text-orange-400 border border-orange-500/20"
-															: "bg-blue-900/30 text-blue-400 border border-blue-500/20"
+															? "bg-orange-900/30 text-orange-400 border border-orange-200"
+															: "bg-blue-50 text-blue-600 border border-blue-200"
 												}`}>
 												{task.priority}
 											</span>
@@ -183,13 +183,13 @@ function TasksContent() {
 													onClick={() =>
 														router.push(`/Head/tasks/edit/${task.id}`)
 													}
-													className="text-slate-400 hover:text-blue-400 transition-colors text-sm font-medium">
+													className="text-gray-500 hover:text-blue-600 transition-colors text-sm font-medium">
 													Edit
 												</button>
-												<div className="w-px h-4 bg-slate-700"></div>
+												<div className="w-px h-4 bg-gray-200"></div>
 												<button
 													onClick={() => handleDelete(task.id)}
-													className="text-slate-400 hover:text-red-400 transition-colors text-sm font-medium">
+													className="text-gray-500 hover:text-red-600 transition-colors text-sm font-medium">
 													Delete
 												</button>
 											</div>
@@ -207,7 +207,7 @@ function TasksContent() {
 // Main component with Suspense wrapper
 export default function ManageTasks() {
 	return (
-		<Suspense fallback={<div className="p-8 text-white">Loading...</div>}>
+		<Suspense fallback={<div className="p-8 text-gray-700">Loading...</div>}>
 			<TasksContent />
 		</Suspense>
 	);

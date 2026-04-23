@@ -3,17 +3,18 @@ import { NextResponse } from 'next/server';
 export async function GET() {
     const query = `
         query GetAllInterns {
-            users(where: {role: {_eq: "Intern"}}) {
-                id
-                name
-                email
-                college
-                gender
-                DeptName {
-                    name
-                }
-            }
-        }
+  users(where: {role: {_eq: "Intern"}}) {
+    id
+    name
+    email
+    college
+    gender
+    department {
+      name
+    }
+  }
+}
+
     `;
 
     try {

@@ -1,4 +1,23 @@
 services:
+  superset:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: superset
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_SECRET_KEY: "something_secure"
+
+    volumes:
+      - superset_home:/app/superset_home
+    command: >
+      /bin/sh -c "
+        superset db upgrade &&
+        superset fab create-admin --username admin --firstname Admin --lastname User --email wijolev835@kobace.com --password admin ||true &&
+        superset init &&
+        superset run -h 0.0.0.0 -p 8088
+      "
   postgres:
     image: postgres:15
     restart: always
@@ -47,3 +66,4 @@ services:
       start_period: 5s
 volumes:
   db_data:
+  superset_home:

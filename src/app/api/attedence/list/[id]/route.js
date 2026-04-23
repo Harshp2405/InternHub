@@ -7,16 +7,13 @@ export async function GET(req, { params }) {
 
 	const query = `
 query GetAttedenceById($id: Int!) {
-    Attedence(where: {user: {id: {_eq: $id}}} , order_by: {id: asc}) {
+    Attedence(where: {user: {id: {_eq: $id}}} , order_by: {id: desc}) {
         id
         user_Id
         checkIn
         checkOut
         user {
             name
-            DeptName {
-                name
-            }
         }
     }
 }

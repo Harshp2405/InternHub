@@ -24,17 +24,17 @@ export default function ViewUser() {
         fetchUserData();
     }, [id]);
 
-    if (loading) return <div className="p-10 text-white text-center">Loading user details...</div>;
-    if (!user) return <div className="p-10 text-white text-center">User not found.</div>;
+    if (loading) return <div className="p-10 text-gray-900 text-center">Loading user details...</div>;
+    if (!user) return <div className="p-10 text-gray-900 text-center">User not found.</div>;
 
     return (
-        <div className="min-h-screen p-8 bg-black text-white flex justify-center items-start">
-            <div className="w-full max-w-2xl bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl">
-                <div className="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
-                    <h1 className="text-2xl font-bold text-blue-400">User Profile Details</h1>
+        <div className="min-h-screen p-8 bg-gray-50 text-gray-900 flex justify-center items-start">
+            <div className="w-full max-w-2xl bg-white p-8 rounded-2xl border border-gray-200 shadow-lg">
+                <div className="flex justify-between items-center mb-6 border-b border-gray-200 pb-4">
+                    <h1 className="text-2xl font-bold text-blue-600">User Profile Details</h1>
                     <button 
                         onClick={() => router.back()}
-                        className="text-sm bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition"
+                        className="text-sm bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition"
                     >
                         Back
                     </button>
@@ -71,7 +71,7 @@ function DetailItem({ label, value, badge }) {
         <div>
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">{label}</p>
             {badge ? (
-                <span className="inline-block bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full text-sm font-bold border border-blue-800/50">
+                <span className="inline-block bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-bold border border-blue-800/50">
                     {value}
                 </span>
             ) : (

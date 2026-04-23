@@ -88,16 +88,16 @@ function DashboardContent() {
 	};
 
     return (
-			<div className="p-8 bg-[#0f172a] min-h-screen text-slate-200">
+			<div className="p-8 bg-gray-50 min-h-screen text-gray-700">
 				<div className="max-w-6xl mx-auto">
 					{/* Header Section */}
 					<div className="mb-8 border-l-4 border-indigo-500 pl-4 flex justify-between items-end">
 						<div>
-							<h1 className="text-3xl font-extrabold text-white tracking-tight">
+							<h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
 								{departmentName} Department{" "}
-								<span className="text-indigo-400">Interns</span>
+								<span className="text-indigo-600">Interns</span>
 							</h1>
-							<p className="text-slate-400 mt-1">
+							<p className="text-gray-500 mt-1">
 								Real-time management for your assigned personnel.
 							</p>
 						</div>
@@ -107,7 +107,7 @@ function DashboardContent() {
 									setAtte((prev) => !prev);
 									attedenceList();
 								}}
-								className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+								className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-md shadow-indigo-500/20">
 								My Attedence
 							</button>
 							<button
@@ -115,7 +115,7 @@ function DashboardContent() {
 									setAtte((prev) => !prev);
 									deptattedenceList();
 								}}
-								className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+								className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl font-bold transition-all shadow-md shadow-indigo-500/20">
 								Intern Attedence
 							</button>
 							
@@ -127,7 +127,7 @@ function DashboardContent() {
 									setSearchTerm("");
 									router.replace("/Head/dashboard");
 								}}
-								className="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 py-1 px-3 rounded-lg transition-colors border border-slate-700">
+								className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 py-1 px-3 rounded-lg transition-colors border border-gray-200">
 								Clear Search ✕
 							</button>
 						)}
@@ -139,15 +139,15 @@ function DashboardContent() {
 							<input
 								type="text"
 								placeholder="Search by name or college..."
-								className="w-full bg-[#1e293b] border border-slate-700 rounded-xl p-4 pl-12 text-white placeholder-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+								className="w-full bg-white border border-gray-200 rounded-xl p-4 pl-12 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
 								value={searchTerm}
 								onChange={(e) => setSearchTerm(e.target.value)}
 							/>
-							<span className="absolute left-4 top-4 text-slate-500">🔍</span>
+							<span className="absolute left-4 top-4 text-gray-400">🔍</span>
 						</div>
 
 						<select
-							className="bg-[#1e293b] border border-slate-700 rounded-xl p-4 text-white focus:border-indigo-500 outline-none cursor-pointer hover:bg-[#334155] transition-colors"
+							className="bg-white border border-gray-200 rounded-xl p-4 text-gray-900 focus:border-indigo-500 outline-none cursor-pointer hover:bg-gray-100 transition-colors"
 							value={genderFilter}
 							onChange={(e) => setGenderFilter(e.target.value)}>
 							<option value="All">All Genders</option>
@@ -161,14 +161,14 @@ function DashboardContent() {
 
 					{atte && (
 						<div className="">
-							<div className="p-6 bg-[#0f172a] min-h-screen text-slate-200">
-								<div className="max-w-6xl mx-auto bg-[#1e293b] shadow-2xl rounded-xl border border-slate-700 overflow-hidden">
+							<div className="p-6 bg-gray-50 min-h-screen text-gray-700">
+								<div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl border border-gray-200 overflow-hidden">
 									{/* Header Section */}
-									<div className="relative px-6 py-5 border-b border-slate-700 bg-[#1e293b]">
+									<div className="relative px-6 py-5 border-b border-gray-200 bg-white">
 										{/* Close Button */}
 										<button
 											type="button"
-											className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-2"
+											className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors p-2"
 											onClick={() => setAtte((prev) => !prev)}>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -185,12 +185,12 @@ function DashboardContent() {
 											</svg>
 										</button>
 
-										<h2 className="text-2xl font-bold text-white tracking-tight">
+										<h2 className="text-2xl font-bold text-gray-900 tracking-tight">
 											Daily Attendance Log
 										</h2>
 										<div className="flex items-center mt-1">
 											<span className="flex h-2 w-2 rounded-full bg-emerald-500 mr-2"></span>
-											<p className="text-sm text-slate-400 font-medium">
+											<p className="text-sm text-gray-500 font-medium">
 												{attedencelist.length} Live Records Found
 											</p>
 										</div>
@@ -200,12 +200,10 @@ function DashboardContent() {
 									<div className="overflow-x-auto">
 										<table className="w-full text-left border-collapse">
 											<thead>
-												<tr className="bg-[#334155] text-slate-300 uppercase text-xs tracking-wider">
+												<tr className="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
 													<th className="py-4 px-6 font-semibold">User ID</th>
 													<th className="py-4 px-6 font-semibold">Employee</th>
-													<th className="py-4 px-6 font-semibold">
-														Department
-													</th>
+													
 													<th className="py-4 px-6 font-semibold text-center">
 														Check In
 													</th>
@@ -214,13 +212,13 @@ function DashboardContent() {
 													</th>
 												</tr>
 											</thead>
-											<tbody className="divide-y divide-slate-700">
+											<tbody className="divide-y divide-gray-200">
 												{attedencelist.map((record, key) => (
 													<tr
 														key={key}
-														className="hover:bg-[#334155]/50 transition-all duration-200 group">
+														className="hover:bg-gray-100/50 transition-all duration-200 group">
 														<td className="py-4 px-6">
-															<span className="text-slate-500 group-hover:text-blue-400 font-mono transition-colors">
+															<span className="text-gray-400 group-hover:text-blue-600 font-mono transition-colors">
 																#{key + 1}
 															</span>
 														</td>
@@ -229,23 +227,19 @@ function DashboardContent() {
 																<div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center mr-3 shadow-lg font-bold">
 																	{record.user?.name?.charAt(0) || "U"}
 																</div>
-																<span className="font-medium text-slate-200">
+																<span className="font-medium text-gray-700">
 																	{record.user?.name || "Unknown"}
 																</span>
 															</div>
 														</td>
-														<td className="py-4 px-6">
-															<span className="bg-slate-700/50 border border-slate-600 text-slate-300 py-1 px-3 rounded-md text-xs font-semibold">
-																{record.user?.DeptName?.name || "General"}
-															</span>
-														</td>
+														
 														<td className="py-4 px-6 text-center">
-															<span className="text-emerald-400 font-mono bg-emerald-400/10 px-2 py-1 rounded">
+															<span className="text-emerald-600 font-mono bg-emerald-50 px-2 py-1 rounded">
 																{formatTime(record.checkIn)}
 															</span>
 														</td>
 														<td className="py-4 px-6 text-center">
-															<span className="text-rose-400 font-mono bg-rose-400/10 px-2 py-1 rounded">
+															<span className="text-rose-600 font-mono bg-rose-50 px-2 py-1 rounded">
 																{formatTime(record.checkOut)}
 															</span>
 														</td>
@@ -256,7 +250,7 @@ function DashboardContent() {
 									</div>
 
 									{/* Footer placeholder for pagination or extra info */}
-									<div className="px-6 py-4 bg-[#1e293b] border-t border-slate-700 text-right"></div>
+									<div className="px-6 py-4 bg-white border-t border-gray-200 text-right"></div>
 								</div>
 							</div>
 							;
@@ -264,10 +258,10 @@ function DashboardContent() {
 					)}
 
 					{/* Table Container */}
-					<div className="overflow-hidden bg-[#1e293b] rounded-2xl border border-slate-800 shadow-2xl">
+					<div className="overflow-hidden bg-white rounded-2xl border border-gray-200 shadow-lg">
 						<table className="w-full text-left">
 							<thead>
-								<tr className="bg-[#334155]/50 text-slate-400 text-xs uppercase tracking-widest border-b border-slate-800">
+								<tr className="bg-gray-100/50 text-gray-500 text-xs uppercase tracking-widest border-b border-gray-200">
 									<th className="px-6 py-5 font-semibold">Intern Details</th>
 									<th className="px-6 py-5 font-semibold">College</th>
 									<th className="px-6 py-5 font-semibold text-center">
@@ -281,22 +275,22 @@ function DashboardContent() {
 									</th>
 								</tr>
 							</thead>
-							<tbody className="divide-y divide-slate-800">
+							<tbody className="divide-y divide-gray-200">
 								{filteredInterns.length > 0 ? (
 									filteredInterns.map((intern) => (
 										<tr
 											key={intern.id}
-											className="hover:bg-slate-800/50 transition-all group">
+											className="hover:bg-gray-50 transition-all group">
 											<td className="px-6 py-5">
-												<div className="font-bold text-white group-hover:text-indigo-400 transition-colors">
+												<div className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
 													{intern.name}
 												</div>
-												<div className="text-sm text-slate-500">
+												<div className="text-sm text-gray-400">
 													{intern.email}
 												</div>
 											</td>
 											<td className="px-6 py-5">
-												<span className="text-slate-300 text-sm italic">
+												<span className="text-gray-600 text-sm italic">
 													{intern.college || "Unspecified"}
 												</span>
 											</td>
@@ -304,10 +298,10 @@ function DashboardContent() {
 												<span
 													className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter border ${
 														intern.gender.toLowerCase() === "male"
-															? "bg-blue-500/10 text-blue-400 border-blue-500/20"
+															? "bg-blue-50 text-blue-600 border-blue-200"
 															: intern.gender.toLowerCase() === "female"
-																? "bg-pink-500/10 text-pink-400 border-pink-500/20"
-																: "bg-slate-700 text-slate-300 border-slate-600"
+																? "bg-pink-50 text-pink-600 border-pink-500/20"
+																: "bg-gray-200 text-gray-600 border-gray-300"
 													}`}>
 													<span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-current"></span>
 													{intern.gender || "N/A"}
@@ -332,7 +326,7 @@ function DashboardContent() {
 												</div>
 											</td>
 											<td className="px-6 py-5 text-center">
-												<div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold text-sm">
+												<div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 font-bold text-sm">
 													{intern.task_count || 0}
 												</div>
 											</td>
@@ -341,9 +335,9 @@ function DashboardContent() {
 								) : (
 									<tr>
 										<td colSpan="5" className="px-6 py-20 text-center">
-											<div className="text-slate-500 text-lg">
+											<div className="text-gray-400 text-lg">
 												No matches found for &quot;
-												<span className="text-indigo-400">{searchTerm}</span>
+												<span className="text-indigo-600">{searchTerm}</span>
 												&quot;
 											</div>
 										</td>
@@ -354,7 +348,7 @@ function DashboardContent() {
 					</div>
 
 					{/* Footer Stats */}
-					<div className="mt-6 flex justify-between items-center text-sm text-slate-500 px-2">
+					<div className="mt-6 flex justify-between items-center text-sm text-gray-400 px-2">
 						<p>
 							Showing {filteredInterns.length} out of {interns.length} interns
 						</p>
@@ -375,7 +369,7 @@ function DashboardContent() {
 
 export default function HeadDashboard() {
     return (
-        <Suspense fallback={<div className="min-h-screen bg-[#0f172a] text-white p-8">Loading Dashboard...</div>}>
+        <Suspense fallback={<div className="min-h-screen bg-gray-50 text-gray-700 p-8">Loading Dashboard...</div>}>
             <DashboardContent />
         </Suspense>
     );

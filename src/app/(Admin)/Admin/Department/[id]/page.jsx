@@ -69,12 +69,12 @@ const IdDept = () => {
 
 	if (loading)
 		return (
-			<div className="p-10 text-white animate-pulse">
+			<div className="p-10 text-gray-900 animate-pulse">
 				Loading Department Details...
 			</div>
 		);
 	if (!data?.departments_by_pk)
-		return <div className="p-10 text-red-400">Department not found.</div>;
+		return <div className="p-10 text-red-600">Department not found.</div>;
 
 	const dept = data.departments_by_pk;
 	const users = data.users || [];
@@ -84,34 +84,34 @@ const IdDept = () => {
 	const femaleCount = users.filter((u) =>["FEMALE", "Female"].includes(u.gender)).length;
 
 	return (
-		<div className="min-h-screen bg-slate-950 text-slate-200 p-6 md:p-12">
+		<div className="min-h-screen bg-gray-50 text-gray-700 p-6 md:p-12">
 			{/* Header / Breadcrumb */}
 			<button
 				onClick={() => router.back()}
-				className="flex items-center gap-2 text-slate-500 hover:text-indigo-400 transition-colors mb-6 text-sm font-medium">
+				className="flex items-center gap-2 text-gray-400 hover:text-indigo-600 transition-colors mb-6 text-sm font-medium">
 				← Back to Dashboard
 			</button>
 
 			{/* Department Hero Section */}
-			<div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 mb-8 shadow-2xl relative overflow-hidden flex flex-row">
-				<div className="absolute top-0 right-0 p-8 text-slate-800 font-black text-7xl opacity-20 pointer-events-none">
+			<div className="bg-white border border-gray-200 rounded-3xl p-8 mb-8 shadow-lg relative overflow-hidden flex flex-row">
+				<div className="absolute top-0 right-0 p-8 text-gray-200 font-black text-7xl opacity-20 pointer-events-none">
 					{dept.id}
 				</div>
 
 				<div className="relative z-10">
-					<span className="bg-indigo-500/10 text-indigo-400 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/20 uppercase tracking-widest">
+					<span className="bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1 rounded-full border border-indigo-200 uppercase tracking-widest">
 						Department
 					</span>
-					<h1 className="text-5xl font-extrabold text-white mt-4 mb-2 tracking-tight">
+					<h1 className="text-5xl font-extrabold text-gray-900 mt-4 mb-2 tracking-tight">
 						{dept.name}
 					</h1>
 					<div className="flex flex-wrap gap-6 mt-6">
 						<StatItem label="Total Staff" value={users.length} />
-						<StatItem label="Male" value={maleCount} color="text-blue-400" />
+						<StatItem label="Male" value={maleCount} color="text-blue-600" />
 						<StatItem
 							label="Female"
 							value={femaleCount}
-							color="text-pink-400"
+							color="text-pink-600"
 						/>
 					</div>
 				</div>
@@ -122,12 +122,12 @@ const IdDept = () => {
 						disabled={isDeleting}
 						className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
 							isDeleting
-								? "bg-slate-800 text-slate-500 cursor-not-allowed"
-								: "bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white shadow-lg shadow-red-500/10"
+								? "bg-gray-100 text-gray-400 cursor-not-allowed"
+								: "bg-red-50 text-red-600 border border-red-200 hover:bg-red-500 hover:text-white shadow-md shadow-red-500/10"
 						}`}>
 						{isDeleting ? (
 							<>
-								<span className="w-4 h-4 border-2 border-slate-500 border-t-transparent rounded-full animate-spin"></span>
+								<span className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></span>
 								Deleting...
 							</>
 						) : (
@@ -140,8 +140,8 @@ const IdDept = () => {
 			{/* Users List Section */}
 			<div className="space-y-4">
 				<div className="flex justify-between items-center px-2">
-					<h2 className="text-xl font-bold text-white">Team Members</h2>
-					<span className="text-sm text-slate-500">
+					<h2 className="text-xl font-bold text-gray-900">Team Members</h2>
+					<span className="text-sm text-gray-400">
 						{users.length} active profiles
 					</span>
 				</div>
@@ -150,42 +150,42 @@ const IdDept = () => {
 					{users.map((user) => (
 						<div
 							key={user.id}
-							className="bg-slate-900 border border-slate-800 hover:border-indigo-500/40 p-5 rounded-2xl transition-all group">
+							className="bg-white border border-gray-200 hover:border-indigo-500/40 p-5 rounded-2xl transition-all group">
 							<div className="flex items-start justify-between">
 								<div className="flex items-center gap-4">
 									<div
 										className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold ${
 											user.gender === "MALE"
-												? "bg-blue-500/10 text-blue-400"
-												: "bg-pink-500/10 text-pink-400"
+												? "bg-blue-50 text-blue-600"
+												: "bg-pink-50 text-pink-600"
 										}`}>
 										{user.name.charAt(0)}
 									</div>
 									<div>
-										<h3 className="font-bold text-white group-hover:text-indigo-300 transition-colors">
+										<h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
 											{user.name}
 										</h3>
-										<p className="text-xs text-slate-500">{user.email}</p>
+										<p className="text-xs text-gray-400">{user.email}</p>
 									</div>
 								</div>
 								<Link href={`/${user.id}/edit`}>
 									<span
 										className={`text-[10px] font-black px-2 py-0.5 rounded border uppercase ${
 											user.role === "Head"
-												? "border-amber-500/40 text-amber-500 bg-amber-500/5"
-												: "border-slate-700 text-slate-400"
+												? "border-amber-300 text-amber-700 bg-amber-50"
+												: "border-gray-200 text-gray-500"
 										}`}>
 										{user.role}
 									</span>
 								</Link>
 							</div>
 
-							<div className="mt-6 flex items-center justify-between text-[10px] font-bold uppercase tracking-tighter text-slate-600">
+							<div className="mt-6 flex items-center justify-between text-[10px] font-bold uppercase tracking-tighter text-gray-500">
 								<span>
 									Gender:{" "}
 									<span
 										className={
-											user.gender === "MALE" ? "text-blue-400" : "text-pink-400"
+											user.gender === "MALE" ? "text-blue-600" : "text-pink-600"
 										}>
 										{user.gender}
 									</span>
@@ -201,9 +201,9 @@ const IdDept = () => {
 };
 
 
-const StatItem = ({ label, value, color = "text-indigo-400" }) => (
-	<div className="flex flex-col border-l-2 border-slate-800 pl-4">
-		<span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+const StatItem = ({ label, value, color = "text-indigo-600" }) => (
+	<div className="flex flex-col border-l-2 border-gray-200 pl-4">
+		<span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
 			{label}
 		</span>
 		<span className={`text-2xl font-mono font-bold ${color}`}>{value}</span>

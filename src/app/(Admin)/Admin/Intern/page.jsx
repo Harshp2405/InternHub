@@ -75,7 +75,7 @@ export default function Admin() {
 	});
 
 	return (
-		<div className="min-h-screen p-6 text-white">
+		<div className="min-h-screen p-6 text-gray-900">
 			<div className="flex justify-between items-center mb-6">
 				<h1 className="text-2xl font-bold">Admin Dashboard</h1>
 				<div className="flex gap-4">
@@ -93,17 +93,17 @@ export default function Admin() {
 			</div>
 
 			{/* SEARCH AND FILTER BAR */}
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 bg-gray-900 p-4 rounded-xl border border-gray-800">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 bg-white p-4 rounded-xl border border-gray-200">
 				<input
 					type="text"
 					placeholder="Search by name or college..."
-					className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+					className="bg-gray-100 border border-gray-200 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 
 				<select
-					className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 outline-none"
+					className="bg-gray-100 border border-gray-200 rounded-lg px-4 py-2 outline-none"
 					value={roleFilter}
 					onChange={(e) => setRoleFilter(e.target.value)}>
 					<option value="All">All Roles</option>
@@ -113,7 +113,7 @@ export default function Admin() {
 				</select>
 
 				<select
-					className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 outline-none"
+					className="bg-gray-100 border border-gray-200 rounded-lg px-4 py-2 outline-none"
 					value={deptFilter}
 					onChange={(e) => setDeptFilter(e.target.value)}>
 					<option value="All">All Departments</option>
@@ -125,7 +125,7 @@ export default function Admin() {
 				</select>
 			</div>
 
-			<div className="shadow rounded-xl p-4 mb-6 border border-gray-700">
+			<div className="shadow rounded-xl p-4 mb-6 border border-gray-200">
 				<h2 className="text-lg font-semibold mb-4">
 					All Users ({filteredUsers.length})
 				</h2>
@@ -137,7 +137,7 @@ export default function Admin() {
 						{filteredUsers.map((user) => (
 							<div
 								key={user.id}
-								className="flex justify-between items-center border border-gray-700 p-3 rounded-lg bg-gray-900">
+								className="flex justify-between items-center border border-gray-200 p-3 rounded-lg bg-white">
 								<div>
 									<p className="font-medium">{user.name}</p>
 									<p className="text-sm text-gray-500">
@@ -145,11 +145,11 @@ export default function Admin() {
 										<span className="text-gray-400">{user.college || ""}</span>
 									</p>
 									<div className="flex items-center gap-2 mt-2">
-										<span className="text-xs bg-blue-900 text-blue-300 px-2 py-1 rounded">
+										<span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">
 											Current: {user.role}
 										</span>
 										{/* <select
-											className="text-xs bg-gray-800 text-white border border-gray-600 rounded px-1 outline-none"
+											className="text-xs bg-gray-100 text-gray-700 border border-gray-300 rounded px-1 outline-none"
 											value={user.role}
 											onChange={(e) =>
 												handleRoleChange(user.id, e.target.value)
